@@ -18,7 +18,8 @@
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=fd3f3429" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/css/compact_table_header.css?v=932cb7ac" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/compact_table_header.css?v=8cbb8801" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/tyro_demo.css?v=5ed90e8d" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/ansi.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=302659d7" />
     
@@ -200,16 +201,22 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../">
-  
-  <div class="sidebar-logo-container">
-    <img class="sidebar-logo only-light" src="../../../../_static/logo-light.svg" alt="Light Logo"/>
-    <img class="sidebar-logo only-dark" src="../../../../_static/logo-dark.svg" alt="Dark Logo"/>
-  </div>
+      <div class="sidebar-sticky"><a
+  class="sidebar-brand"
+  href="../../../../"
+  style="margin-top: 0.75em"
+>
   
   <span class="sidebar-brand-text">tyro</span>
+
   
-</a><form class="sidebar-search-container" method="get" action="../../../../search/" role="search">
+</a>
+
+<div style="text-align: left; padding: 0 1em 1em 1em">
+  <a href="https://github.com/brentyi/tyro">
+    <img src="https://img.shields.io/github/stars/brentyi/tyro?style=social" alt="GitHub stars">
+  </a>
+</div><form class="sidebar-search-container" method="get" action="../../../../search/" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
@@ -218,15 +225,15 @@
   <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation/">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../your_first_cli/">Your First CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../your_first_cli/">Your first CLI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../whats_supported/">What’s supported</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../examples/basics/">Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../examples/hierarchical_structures/">Hierarchical Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../examples/hierarchical_structures/">Hierarchical structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../examples/subcommands/">Subcommands</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../examples/overriding_configs/">Overriding Configs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../examples/overriding_configs/">Overriding configs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../examples/generics/">Generics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../examples/custom_constructors/">Custom constructors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../examples/pytorch_jax/">PyTorch / JAX</a></li>
@@ -236,6 +243,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../goals_and_alternatives/">Goals and alternatives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../helptext_generation/">Helptext generation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../tab_completion/">Tab completion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../wandb_sweeps/">W&amp;B sweep compatibility</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
@@ -285,7 +293,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">overload</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">tyro</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">tyro._strings</span><span class="w"> </span><span class="kn">import</span> <span class="n">delimeter_context</span><span class="p">,</span> <span class="n">swap_delimeters</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tyro._strings</span><span class="w"> </span><span class="kn">import</span> <span class="n">delimiter_context</span><span class="p">,</span> <span class="n">swap_delimiters</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">tyro.constructors</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConstructorRegistry</span>
 
 <span class="n">CallableT</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;CallableT&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">Callable</span><span class="p">)</span>
@@ -389,6 +397,7 @@
         <span class="n">args</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">use_underscores</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">console_outputs</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">add_help</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">config</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">sort_subcommands</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">registry</span><span class="p">:</span> <span class="n">ConstructorRegistry</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -412,6 +421,8 @@
 <span class="sd">                https://www.gnu.org/software/libc/manual/html_node/Argument-Syntax.html</span>
 <span class="sd">            console_outputs: If set to `False`, parsing errors and help messages will be</span>
 <span class="sd">                suppressed.</span>
+<span class="sd">            add_help: Add a -h/--help option to the parser. This mirrors the argument from</span>
+<span class="sd">                `argparse.ArgumentParser()`.</span>
 <span class="sd">            config: Sequence of config marker objects, from `tyro.conf`.</span>
 <span class="sd">            sort_subcommands: If True, sort the subcommands alphabetically by name.</span>
 <span class="sd">            registry: A :class:`tyro.constructors.ConstructorRegistry` instance containing custom</span>
@@ -425,11 +436,11 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">subcommands</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subcommands</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
-        <span class="c1"># Replace delimeter in subcommand names.</span>
-        <span class="k">with</span> <span class="n">delimeter_context</span><span class="p">(</span><span class="s2">&quot;_&quot;</span> <span class="k">if</span> <span class="n">use_underscores</span> <span class="k">else</span> <span class="s2">&quot;-&quot;</span><span class="p">):</span>
+        <span class="c1"># Replace delimiter in subcommand names.</span>
+        <span class="k">with</span> <span class="n">delimiter_context</span><span class="p">(</span><span class="s2">&quot;_&quot;</span> <span class="k">if</span> <span class="n">use_underscores</span> <span class="k">else</span> <span class="s2">&quot;-&quot;</span><span class="p">):</span>
             <span class="n">orig_subcommand_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">subcommands</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
             <span class="k">for</span> <span class="n">orig_name</span> <span class="ow">in</span> <span class="n">orig_subcommand_names</span><span class="p">:</span>
-                <span class="n">subcommands</span><span class="p">[</span><span class="n">swap_delimeters</span><span class="p">(</span><span class="n">orig_name</span><span class="p">)]</span> <span class="o">=</span> <span class="n">subcommands</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">orig_name</span><span class="p">)</span>
+                <span class="n">subcommands</span><span class="p">[</span><span class="n">swap_delimiters</span><span class="p">(</span><span class="n">orig_name</span><span class="p">)]</span> <span class="o">=</span> <span class="n">subcommands</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">orig_name</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">tyro</span><span class="o">.</span><span class="n">extras</span><span class="o">.</span><span class="n">subcommand_cli_from_dict</span><span class="p">(</span>
             <span class="n">subcommands</span><span class="p">,</span>
@@ -438,6 +449,7 @@
             <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
             <span class="n">use_underscores</span><span class="o">=</span><span class="n">use_underscores</span><span class="p">,</span>
             <span class="n">console_outputs</span><span class="o">=</span><span class="n">console_outputs</span><span class="p">,</span>
+            <span class="n">add_help</span><span class="o">=</span><span class="n">add_help</span><span class="p">,</span>
             <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
             <span class="n">registry</span><span class="o">=</span><span class="n">registry</span><span class="p">,</span>
         <span class="p">)</span></div>
@@ -455,7 +467,7 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024
+                Copyright &#169; 2026
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             

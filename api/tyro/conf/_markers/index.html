@@ -19,7 +19,8 @@
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=fd3f3429" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/css/compact_table_header.css?v=932cb7ac" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/compact_table_header.css?v=8cbb8801" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/tyro_demo.css?v=5ed90e8d" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/ansi.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=302659d7" />
     
@@ -201,16 +202,22 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../">
-  
-  <div class="sidebar-logo-container">
-    <img class="sidebar-logo only-light" src="../../../../_static/logo-light.svg" alt="Light Logo"/>
-    <img class="sidebar-logo only-dark" src="../../../../_static/logo-dark.svg" alt="Dark Logo"/>
-  </div>
+      <div class="sidebar-sticky"><a
+  class="sidebar-brand"
+  href="../../../../"
+  style="margin-top: 0.75em"
+>
   
   <span class="sidebar-brand-text">tyro</span>
+
   
-</a><form class="sidebar-search-container" method="get" action="../../../../search/" role="search">
+</a>
+
+<div style="text-align: left; padding: 0 1em 1em 1em">
+  <a href="https://github.com/brentyi/tyro">
+    <img src="https://img.shields.io/github/stars/brentyi/tyro?style=social" alt="GitHub stars">
+  </a>
+</div><form class="sidebar-search-container" method="get" action="../../../../search/" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
@@ -219,15 +226,15 @@
   <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation/">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../your_first_cli/">Your First CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../your_first_cli/">Your first CLI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../whats_supported/">What’s supported</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../examples/basics/">Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../examples/hierarchical_structures/">Hierarchical Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../examples/hierarchical_structures/">Hierarchical structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../examples/subcommands/">Subcommands</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../examples/overriding_configs/">Overriding Configs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../examples/overriding_configs/">Overriding configs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../examples/generics/">Generics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../examples/custom_constructors/">Custom constructors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../examples/pytorch_jax/">PyTorch / JAX</a></li>
@@ -237,6 +244,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../goals_and_alternatives/">Goals and alternatives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../helptext_generation/">Helptext generation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../tab_completion/">Tab completion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../wandb_sweeps/">W&amp;B sweep compatibility</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
@@ -313,7 +321,7 @@
 <dt class="sig sig-object py" id="tyro.conf._markers.PositionalRequiredArgs">
 <span class="sig-prename descclassname"><span class="pre">tyro.conf._markers.</span></span><span class="sig-name descname"><span class="pre">PositionalRequiredArgs</span></span><a class="headerlink" href="#tyro.conf._markers.PositionalRequiredArgs" title="Link to this definition">¶</a></dt>
 <dd><p>Make all required arguments (those without default values) positional.</p>
-<p>This marker applies to an entire interface when passed to the <cite>config</cite> parameter of <cite>tyro.cli()</cite>.</p>
+<p>This marker applies to an entire interface when passed to the <cite>config</cite> parameter of :func:<code class="docutils literal notranslate"><span class="pre">tyro.cli()</span></code>.</p>
 <p>Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Args</span><span class="p">:</span>
@@ -395,6 +403,47 @@ expect an explicit True or False value.</p>
 </dd></dl>
 
 <dl class="py data">
+<dt class="sig sig-object py" id="tyro.conf._markers.UsePythonSyntaxForLiteralCollections">
+<span class="sig-prename descclassname"><span class="pre">tyro.conf._markers.</span></span><span class="sig-name descname"><span class="pre">UsePythonSyntaxForLiteralCollections</span></span><a class="headerlink" href="#tyro.conf._markers.UsePythonSyntaxForLiteralCollections" title="Link to this definition">¶</a></dt>
+<dd><p>Use Python literal syntax for collection types containing literal-compatible types.</p>
+<p>By default, collection types are flattened into multiple command-line
+arguments. With <a class="reference internal" href="#tyro.conf._markers.UsePythonSyntaxForLiteralCollections" title="tyro.conf._markers.UsePythonSyntaxForLiteralCollections"><code class="xref py py-data docutils literal notranslate"><span class="pre">UsePythonSyntaxForLiteralCollections</span></code></a>, collections accept
+Python literal syntax as a single string argument.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Default behavior</span>
+<span class="n">values</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+<span class="c1"># Usage: python script.py --values 1 2 3</span>
+
+<span class="c1"># With UsePythonSyntaxForLiteralCollections</span>
+<span class="n">tyro</span><span class="o">.</span><span class="n">cli</span><span class="p">(</span><span class="n">Config</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="p">(</span><span class="n">tyro</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">UsePythonSyntaxForLiteralCollections</span><span class="p">,))</span>
+<span class="c1"># Usage: python script.py --values &quot;[1, 2, 3]&quot;</span>
+<span class="c1">#        python script.py --mapping &quot;{&#39;a&#39;: 1, &#39;b&#39;: 2}&quot;</span>
+<span class="c1">#        python script.py --dims (128,128,128)</span>
+
+<span class="c1"># Works with nested structures</span>
+<span class="n">nested</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span>
+<span class="c1"># Usage: python script.py --nested &quot;[(&#39;a&#39;, 1), (&#39;b&#39;, 2)]&quot;</span>
+
+<span class="n">mapping</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span>
+<span class="c1"># Usage: python script.py --mapping &quot;{&#39;x&#39;: [1, 2], &#39;y&#39;: [3, 4]}&quot;</span>
+
+<span class="c1"># Works with Literal types</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+<span class="n">modes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="s2">&quot;eval&quot;</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">]]</span>
+<span class="c1"># Usage: python script.py --modes &quot;[&#39;train&#39;, &#39;eval&#39;]&quot;</span>
+</pre></div>
+</div>
+<p>This is useful for deeply nested types and wandb sweeps, where only a single
+input value is allowed per argument.</p>
+<p>The marker uses <code class="docutils literal notranslate"><span class="pre">ast.literal_eval()</span></code> for parsing, which only supports Python
+literals: <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">bytes</span></code>, <code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">complex</span></code>, <code class="docutils literal notranslate"><span class="pre">bool</span></code>,
+<code class="docutils literal notranslate"><span class="pre">None</span></code>, and the collection types <code class="docutils literal notranslate"><span class="pre">list</span></code>, <code class="docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="docutils literal notranslate"><span class="pre">dict</span></code>, <code class="docutils literal notranslate"><span class="pre">set</span></code>.
+<code class="docutils literal notranslate"><span class="pre">typing.Literal</span></code> types are also supported. Nested structures of these types
+are supported. If incompatible types are detected (e.g., <code class="docutils literal notranslate"><span class="pre">pathlib.Path</span></code>,
+custom classes), the marker is ignored and the field is handled normally.</p>
+</dd></dl>
+
+<dl class="py data">
 <dt class="sig sig-object py" id="tyro.conf._markers.FlagCreatePairsOff">
 <span class="sig-prename descclassname"><span class="pre">tyro.conf._markers.</span></span><span class="sig-name descname"><span class="pre">FlagCreatePairsOff</span></span><a class="headerlink" href="#tyro.conf._markers.FlagCreatePairsOff" title="Link to this definition">¶</a></dt>
 <dd><p>Disable creation of matching flag pairs for boolean types.</p>
@@ -444,26 +493,46 @@ simplifying the CLI interface (but making it less expressive).</p>
 </dd></dl>
 
 <dl class="py data">
-<dt class="sig sig-object py" id="tyro.conf._markers.ConsolidateSubcommandArgs">
-<span class="sig-prename descclassname"><span class="pre">tyro.conf._markers.</span></span><span class="sig-name descname"><span class="pre">ConsolidateSubcommandArgs</span></span><a class="headerlink" href="#tyro.conf._markers.ConsolidateSubcommandArgs" title="Link to this definition">¶</a></dt>
-<dd><p>Consolidate arguments for nested subcommands to make CLI less position-sensitive.</p>
-<p>By default, tyro generates CLI interfaces where arguments apply to the directly preceding
-subcommand, which creates position-dependent behavior:</p>
+<dt class="sig sig-object py" id="tyro.conf._markers.CascadeSubcommandArgs">
+<span class="sig-prename descclassname"><span class="pre">tyro.conf._markers.</span></span><span class="sig-name descname"><span class="pre">CascadeSubcommandArgs</span></span><a class="headerlink" href="#tyro.conf._markers.CascadeSubcommandArgs" title="Link to this definition">¶</a></dt>
+<dd><p>Make arguments cascade downward through subcommand hierarchy and enable implicit subcommand selection.</p>
+<p>By default, tyro generates CLI interfaces where arguments apply to the directly
+preceding subcommand, which creates position-dependent behavior:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Default behavior - position matters</span>
 python<span class="w"> </span>x.py<span class="w"> </span><span class="o">{</span>--root<span class="w"> </span>options<span class="o">}</span><span class="w"> </span>s1<span class="w"> </span><span class="o">{</span>--s1<span class="w"> </span>options<span class="o">}</span><span class="w"> </span>s2<span class="w"> </span><span class="o">{</span>--s2<span class="w"> </span>options<span class="o">}</span>
 </pre></div>
 </div>
-<p>With <a class="reference internal" href="#tyro.conf._markers.ConsolidateSubcommandArgs" title="tyro.conf._markers.ConsolidateSubcommandArgs"><code class="xref py py-data docutils literal notranslate"><span class="pre">ConsolidateSubcommandArgs</span></code></a>, all arguments are moved to the end, after all subcommands:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># With ConsolidateSubcommandArgs - all options at the end</span>
-python<span class="w"> </span>x.py<span class="w"> </span>s1<span class="w"> </span>s2<span class="w"> </span><span class="o">{</span>--root,<span class="w"> </span>s1,<span class="w"> </span>and<span class="w"> </span>s2<span class="w"> </span>options<span class="o">}</span>
+<p>Arguments marked with <a class="reference internal" href="#tyro.conf._markers.CascadeSubcommandArgs" title="tyro.conf._markers.CascadeSubcommandArgs"><code class="xref py py-data docutils literal notranslate"><span class="pre">CascadeSubcommandArgs</span></code></a> become visible at their
+definition point and all following parsers. This allows arguments and
+subcommands to be intermixed more flexibly.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># More flexible!</span>
+python<span class="w"> </span>x.py<span class="w"> </span><span class="o">{</span>--root<span class="w"> </span>options<span class="o">}</span><span class="w"> </span>s1<span class="w"> </span><span class="o">{</span>--root,<span class="w"> </span>--s1<span class="w"> </span>options<span class="o">}</span><span class="w"> </span>s2<span class="w"> </span><span class="o">{</span>--root,<span class="w"> </span>--s1,<span class="w"> </span>--s2<span class="w"> </span>options<span class="o">}</span>
 </pre></div>
 </div>
-<p>This makes the interface more robust to argument reordering, but has a tradeoff: if
-root options are required (have no defaults), all subcommands must be specified
-before providing those required arguments.</p>
-<p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tyro</span><span class="o">.</span><span class="n">cli</span><span class="p">(</span><span class="n">NestedConfig</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="p">(</span><span class="n">tyro</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">ConsolidateSubcommandArgs</span><span class="p">,))</span>
+<p><strong>Implicit subcommand selection:</strong> When a union type has a default value,
+using arguments or nested subcommand selectors that belong to the default
+subcommand will automatically select it without requiring explicit selection.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Without implicit selection (explicit subcommand required):</span>
+python<span class="w"> </span>x.py<span class="w"> </span>mode:mode-a<span class="w"> </span>--mode.option<span class="w"> </span>value
+
+<span class="c1"># With implicit selection (subcommand selected automatically):</span>
+python<span class="w"> </span>x.py<span class="w"> </span>--mode.option<span class="w"> </span>value
 </pre></div>
+</div>
+<p>This marker can be applied globally via :func:<code class="docutils literal notranslate"><span class="pre">tyro.cli()</span></code>’s <code class="docutils literal notranslate"><span class="pre">config=</span></code>
+argument, to entire dataclasses, or to individual arguments.</p>
+<p><strong>Cascading behavior:</strong> An argument defined at level N is visible at level N
+and all levels below it (N+1, N+2, …). Arguments from a subcommand do not
+cascade upward to parent parsers.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="tyro.conf._markers.ConsolidateSubcommandArgs">
+<span class="sig-prename descclassname"><span class="pre">tyro.conf._markers.</span></span><span class="sig-name descname"><span class="pre">ConsolidateSubcommandArgs</span></span><a class="headerlink" href="#tyro.conf._markers.ConsolidateSubcommandArgs" title="Link to this definition">¶</a></dt>
+<dd><p>Consolidate arguments for nested subcommands to make CLI less position-sensitive.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 1.0.0: </span>Use <a class="reference internal" href="#tyro.conf._markers.CascadeSubcommandArgs" title="tyro.conf._markers.CascadeSubcommandArgs"><code class="xref py py-data docutils literal notranslate"><span class="pre">CascadeSubcommandArgs</span></code></a> instead. <a class="reference internal" href="#tyro.conf._markers.ConsolidateSubcommandArgs" title="tyro.conf._markers.ConsolidateSubcommandArgs"><code class="xref py py-data docutils literal notranslate"><span class="pre">ConsolidateSubcommandArgs</span></code></a> is an
+alias for <a class="reference internal" href="#tyro.conf._markers.CascadeSubcommandArgs" title="tyro.conf._markers.CascadeSubcommandArgs"><code class="xref py py-data docutils literal notranslate"><span class="pre">CascadeSubcommandArgs</span></code></a> and will be removed in a future version.</p>
 </div>
 </dd></dl>
 
@@ -590,7 +659,7 @@ With <a class="reference internal" href="#tyro.conf._markers.EnumChoicesFromValu
 </pre></div>
 </div>
 <p>This is useful with auto-generated enum values like those in
-<a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.StrEnum" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.StrEnum</span></code></a>, where the values may be more user-friendly than the internal
+<a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.StrEnum" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.StrEnum</span></code></a>, where the values may be more user-friendly than the internal
 names.</p>
 <p>When <a class="reference internal" href="#tyro.conf._markers.EnumChoicesFromValues" title="tyro.conf._markers.EnumChoicesFromValues"><code class="xref py py-data docutils literal notranslate"><span class="pre">EnumChoicesFromValues</span></code></a> is used, enum aliases aren’t considered. The first enum member with a
 matching value will be selected.</p>
@@ -624,6 +693,45 @@ even when this marker is applied.</p>
 </dd></dl>
 
 <dl class="py data">
+<dt class="sig sig-object py" id="tyro.conf._markers.DisallowNone">
+<span class="sig-prename descclassname"><span class="pre">tyro.conf._markers.</span></span><span class="sig-name descname"><span class="pre">DisallowNone</span></span><a class="headerlink" href="#tyro.conf._markers.DisallowNone" title="Link to this definition">¶</a></dt>
+<dd><p>Disallow passing <cite>None</cite> in via the command-line interface for union types
+containing <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
+    <span class="n">field</span><span class="p">:</span> <span class="n">DisallowNone</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+</div>
+<p>In this case, <cite>None</cite> can still be used as a default value. However, <code class="docutils literal notranslate"><span class="pre">--field</span>
+<span class="pre">None</span></code> will raise an error. This can be useful when used in conjunction with
+<code class="xref py py-func docutils literal notranslate"><span class="pre">tyro.conf.mutually_exclusive_group()</span></code>.</p>
+<p>This only impacts union types. For cases like <code class="docutils literal notranslate"><span class="pre">field:</span> <span class="pre">None</span></code> where only
+<code class="docutils literal notranslate"><span class="pre">None</span></code> is allowed, we still accept <code class="docutils literal notranslate"><span class="pre">--field</span> <span class="pre">None</span></code>.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="tyro.conf._markers.NewSubcommandForDefaults">
+<span class="sig-prename descclassname"><span class="pre">tyro.conf._markers.</span></span><span class="sig-name descname"><span class="pre">NewSubcommandForDefaults</span></span><a class="headerlink" href="#tyro.conf._markers.NewSubcommandForDefaults" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new ‘default’ subcommand when unions over structs have a default
+value.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">NewSubcommandForDefaults</span><span class="p">[</span><span class="n">StructA</span> <span class="o">|</span> <span class="n">StructB</span><span class="p">]</span> <span class="o">=</span> <span class="n">StructA</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This example would create three subcommands: <code class="docutils literal notranslate"><span class="pre">x:struct-a</span></code>, <code class="docutils literal notranslate"><span class="pre">x:struct-b</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">x:default</span></code>.</p>
+<p>When a union field has a default value, tyro normally matches it to an existing
+subcommand based on type compatibility and overwrites that subcommand’s
+defaults with values from the provided default. This means the original
+subcommand loses its original default values. This marker is useful for making
+sure that original subcommand defaults are preserved.</p>
+<p>Tip: consider also applying <a class="reference internal" href="#tyro.conf._markers.CascadeSubcommandArgs" title="tyro.conf._markers.CascadeSubcommandArgs"><code class="xref py py-data docutils literal notranslate"><span class="pre">CascadeSubcommandArgs</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py data">
 <dt class="sig sig-object py" id="tyro.conf._markers.CallableType">
 <span class="sig-prename descclassname"><span class="pre">tyro.conf._markers.</span></span><span class="sig-name descname"><span class="pre">CallableType</span></span><a class="headerlink" href="#tyro.conf._markers.CallableType" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -644,7 +752,7 @@ prefer passing <code class="docutils literal notranslate"><span class="pre">conf
 </div>
 <p>Consider using the <code class="docutils literal notranslate"><span class="pre">config=</span></code> argument of <a class="reference internal" href="../../#tyro.cli" title="tyro.cli"><code class="xref py py-func docutils literal notranslate"><span class="pre">tyro.cli()</span></code></a> instead, which takes
 the same config marker objects as inputs.</p>
-<p>Configuration markers are implemented via <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Annotated</span></code></a> and
+<p>Configuration markers are implemented via <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Annotated</span></code></a> and
 straightforward to apply to types, for example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">field</span><span class="p">:</span> <span class="n">tyro</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">FlagConversionOff</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span>
 </pre></div>
@@ -680,7 +788,7 @@ straightforward to apply to types, for example:</p>
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024
+                Copyright &#169; 2026
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -722,8 +830,10 @@ straightforward to apply to types, for example:</p>
 <li><a class="reference internal" href="#tyro.conf._markers.Suppress"><code class="docutils literal notranslate"><span class="pre">Suppress</span></code></a></li>
 <li><a class="reference internal" href="#tyro.conf._markers.SuppressFixed"><code class="docutils literal notranslate"><span class="pre">SuppressFixed</span></code></a></li>
 <li><a class="reference internal" href="#tyro.conf._markers.FlagConversionOff"><code class="docutils literal notranslate"><span class="pre">FlagConversionOff</span></code></a></li>
+<li><a class="reference internal" href="#tyro.conf._markers.UsePythonSyntaxForLiteralCollections"><code class="docutils literal notranslate"><span class="pre">UsePythonSyntaxForLiteralCollections</span></code></a></li>
 <li><a class="reference internal" href="#tyro.conf._markers.FlagCreatePairsOff"><code class="docutils literal notranslate"><span class="pre">FlagCreatePairsOff</span></code></a></li>
 <li><a class="reference internal" href="#tyro.conf._markers.AvoidSubcommands"><code class="docutils literal notranslate"><span class="pre">AvoidSubcommands</span></code></a></li>
+<li><a class="reference internal" href="#tyro.conf._markers.CascadeSubcommandArgs"><code class="docutils literal notranslate"><span class="pre">CascadeSubcommandArgs</span></code></a></li>
 <li><a class="reference internal" href="#tyro.conf._markers.ConsolidateSubcommandArgs"><code class="docutils literal notranslate"><span class="pre">ConsolidateSubcommandArgs</span></code></a></li>
 <li><a class="reference internal" href="#tyro.conf._markers.OmitSubcommandPrefixes"><code class="docutils literal notranslate"><span class="pre">OmitSubcommandPrefixes</span></code></a></li>
 <li><a class="reference internal" href="#tyro.conf._markers.OmitArgPrefixes"><code class="docutils literal notranslate"><span class="pre">OmitArgPrefixes</span></code></a></li>
@@ -731,6 +841,8 @@ straightforward to apply to types, for example:</p>
 <li><a class="reference internal" href="#tyro.conf._markers.UseCounterAction"><code class="docutils literal notranslate"><span class="pre">UseCounterAction</span></code></a></li>
 <li><a class="reference internal" href="#tyro.conf._markers.EnumChoicesFromValues"><code class="docutils literal notranslate"><span class="pre">EnumChoicesFromValues</span></code></a></li>
 <li><a class="reference internal" href="#tyro.conf._markers.HelptextFromCommentsOff"><code class="docutils literal notranslate"><span class="pre">HelptextFromCommentsOff</span></code></a></li>
+<li><a class="reference internal" href="#tyro.conf._markers.DisallowNone"><code class="docutils literal notranslate"><span class="pre">DisallowNone</span></code></a></li>
+<li><a class="reference internal" href="#tyro.conf._markers.NewSubcommandForDefaults"><code class="docutils literal notranslate"><span class="pre">NewSubcommandForDefaults</span></code></a></li>
 <li><a class="reference internal" href="#tyro.conf._markers.CallableType"><code class="docutils literal notranslate"><span class="pre">CallableType</span></code></a></li>
 <li><a class="reference internal" href="#tyro.conf._markers.Marker"><code class="docutils literal notranslate"><span class="pre">Marker</span></code></a></li>
 <li><a class="reference internal" href="#tyro.conf._markers.configure"><code class="docutils literal notranslate"><span class="pre">configure()</span></code></a></li>

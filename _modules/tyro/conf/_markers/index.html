@@ -18,7 +18,8 @@
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=fd3f3429" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/css/compact_table_header.css?v=932cb7ac" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/compact_table_header.css?v=8cbb8801" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/tyro_demo.css?v=5ed90e8d" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/ansi.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=302659d7" />
     
@@ -200,16 +201,22 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../">
-  
-  <div class="sidebar-logo-container">
-    <img class="sidebar-logo only-light" src="../../../../_static/logo-light.svg" alt="Light Logo"/>
-    <img class="sidebar-logo only-dark" src="../../../../_static/logo-dark.svg" alt="Dark Logo"/>
-  </div>
+      <div class="sidebar-sticky"><a
+  class="sidebar-brand"
+  href="../../../../"
+  style="margin-top: 0.75em"
+>
   
   <span class="sidebar-brand-text">tyro</span>
+
   
-</a><form class="sidebar-search-container" method="get" action="../../../../search/" role="search">
+</a>
+
+<div style="text-align: left; padding: 0 1em 1em 1em">
+  <a href="https://github.com/brentyi/tyro">
+    <img src="https://img.shields.io/github/stars/brentyi/tyro?style=social" alt="GitHub stars">
+  </a>
+</div><form class="sidebar-search-container" method="get" action="../../../../search/" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
@@ -218,15 +225,15 @@
   <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation/">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../your_first_cli/">Your First CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../your_first_cli/">Your first CLI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../whats_supported/">What’s supported</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../examples/basics/">Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../examples/hierarchical_structures/">Hierarchical Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../examples/hierarchical_structures/">Hierarchical structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../examples/subcommands/">Subcommands</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../examples/overriding_configs/">Overriding Configs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../examples/overriding_configs/">Overriding configs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../examples/generics/">Generics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../examples/custom_constructors/">Custom constructors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../examples/pytorch_jax/">PyTorch / JAX</a></li>
@@ -236,6 +243,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../goals_and_alternatives/">Goals and alternatives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../helptext_generation/">Helptext generation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../tab_completion/">Tab completion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../wandb_sweeps/">W&amp;B sweep compatibility</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
@@ -313,7 +321,7 @@
 <span class="n">PositionalRequiredArgs</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
 <span class="sd">&quot;&quot;&quot;Make all required arguments (those without default values) positional.</span>
 
-<span class="sd">This marker applies to an entire interface when passed to the `config` parameter of `tyro.cli()`.</span>
+<span class="sd">This marker applies to an entire interface when passed to the `config` parameter of :func:``tyro.cli()``.</span>
 
 <span class="sd">Example::</span>
 
@@ -324,14 +332,6 @@
 
 <span class="sd">    args = tyro.cli(Args, config=(tyro.conf.PositionalRequiredArgs,))</span>
 <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="c1"># Private marker. For when an argument is not only positional in the CLI, but also in</span>
-<span class="c1"># the callable.</span>
-<span class="n">_PositionalCall</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
-
-<span class="c1"># Private markers for when arguments should be passed in via *args or **kwargs.</span>
-<span class="n">_UnpackArgsCall</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
-<span class="n">_UnpackKwargsCall</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
 
 <span class="c1"># Private marker.</span>
 <span class="n">_OPTIONAL_GROUP</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
@@ -406,6 +406,48 @@
 <span class="sd">This marker can be applied to specific boolean fields or globally using the config parameter.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="n">UsePythonSyntaxForLiteralCollections</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="sd">&quot;&quot;&quot;Use Python literal syntax for collection types containing literal-compatible types.</span>
+
+<span class="sd">By default, collection types are flattened into multiple command-line</span>
+<span class="sd">arguments. With :data:`UsePythonSyntaxForLiteralCollections`, collections accept</span>
+<span class="sd">Python literal syntax as a single string argument.</span>
+
+<span class="sd">Example::</span>
+
+<span class="sd">    # Default behavior</span>
+<span class="sd">    values: list[int]</span>
+<span class="sd">    # Usage: python script.py --values 1 2 3</span>
+
+<span class="sd">    # With UsePythonSyntaxForLiteralCollections</span>
+<span class="sd">    tyro.cli(Config, config=(tyro.conf.UsePythonSyntaxForLiteralCollections,))</span>
+<span class="sd">    # Usage: python script.py --values &quot;[1, 2, 3]&quot;</span>
+<span class="sd">    #        python script.py --mapping &quot;{&#39;a&#39;: 1, &#39;b&#39;: 2}&quot;</span>
+<span class="sd">    #        python script.py --dims (128,128,128)</span>
+
+<span class="sd">    # Works with nested structures</span>
+<span class="sd">    nested: list[tuple[str, int]]</span>
+<span class="sd">    # Usage: python script.py --nested &quot;[(&#39;a&#39;, 1), (&#39;b&#39;, 2)]&quot;</span>
+
+<span class="sd">    mapping: dict[str, list[int]]</span>
+<span class="sd">    # Usage: python script.py --mapping &quot;{&#39;x&#39;: [1, 2], &#39;y&#39;: [3, 4]}&quot;</span>
+
+<span class="sd">    # Works with Literal types</span>
+<span class="sd">    from typing import Literal</span>
+<span class="sd">    modes: list[Literal[&quot;train&quot;, &quot;eval&quot;, &quot;test&quot;]]</span>
+<span class="sd">    # Usage: python script.py --modes &quot;[&#39;train&#39;, &#39;eval&#39;]&quot;</span>
+
+<span class="sd">This is useful for deeply nested types and wandb sweeps, where only a single</span>
+<span class="sd">input value is allowed per argument.</span>
+
+<span class="sd">The marker uses ``ast.literal_eval()`` for parsing, which only supports Python</span>
+<span class="sd">literals: ``str``, ``bytes``, ``int``, ``float``, ``complex``, ``bool``,</span>
+<span class="sd">``None``, and the collection types ``list``, ``tuple``, ``dict``, ``set``.</span>
+<span class="sd">``typing.Literal`` types are also supported. Nested structures of these types</span>
+<span class="sd">are supported. If incompatible types are detected (e.g., ``pathlib.Path``,</span>
+<span class="sd">custom classes), the marker is ignored and the field is handled normally.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
 <span class="n">FlagCreatePairsOff</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
 <span class="sd">&quot;&quot;&quot;Disable creation of matching flag pairs for boolean types.</span>
 
@@ -454,31 +496,52 @@
 <span class="sd">This can be applied to specific union fields or globally with the config parameter.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">ConsolidateSubcommandArgs</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
-<span class="sd">&quot;&quot;&quot;Consolidate arguments for nested subcommands to make CLI less position-sensitive.</span>
+<span class="n">CascadeSubcommandArgs</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="sd">&quot;&quot;&quot;Make arguments cascade downward through subcommand hierarchy and enable implicit subcommand selection.</span>
 
-<span class="sd">By default, tyro generates CLI interfaces where arguments apply to the directly preceding</span>
-<span class="sd">subcommand, which creates position-dependent behavior:</span>
+<span class="sd">By default, tyro generates CLI interfaces where arguments apply to the directly</span>
+<span class="sd">preceding subcommand, which creates position-dependent behavior:</span>
 
 <span class="sd">.. code-block:: bash</span>
 
 <span class="sd">    # Default behavior - position matters</span>
 <span class="sd">    python x.py {--root options} s1 {--s1 options} s2 {--s2 options}</span>
 
-<span class="sd">With :data:`ConsolidateSubcommandArgs`, all arguments are moved to the end, after all subcommands:</span>
+<span class="sd">Arguments marked with :data:`CascadeSubcommandArgs` become visible at their</span>
+<span class="sd">definition point and all following parsers. This allows arguments and</span>
+<span class="sd">subcommands to be intermixed more flexibly.</span>
 
 <span class="sd">.. code-block:: bash</span>
 
-<span class="sd">    # With ConsolidateSubcommandArgs - all options at the end</span>
-<span class="sd">    python x.py s1 s2 {--root, s1, and s2 options}</span>
+<span class="sd">    # More flexible!</span>
+<span class="sd">    python x.py {--root options} s1 {--root, --s1 options} s2 {--root, --s1, --s2 options}</span>
 
-<span class="sd">This makes the interface more robust to argument reordering, but has a tradeoff: if</span>
-<span class="sd">root options are required (have no defaults), all subcommands must be specified</span>
-<span class="sd">before providing those required arguments.</span>
+<span class="sd">**Implicit subcommand selection:** When a union type has a default value,</span>
+<span class="sd">using arguments or nested subcommand selectors that belong to the default</span>
+<span class="sd">subcommand will automatically select it without requiring explicit selection.</span>
 
-<span class="sd">Example::</span>
+<span class="sd">.. code-block:: bash</span>
 
-<span class="sd">    tyro.cli(NestedConfig, config=(tyro.conf.ConsolidateSubcommandArgs,))</span>
+<span class="sd">    # Without implicit selection (explicit subcommand required):</span>
+<span class="sd">    python x.py mode:mode-a --mode.option value</span>
+
+<span class="sd">    # With implicit selection (subcommand selected automatically):</span>
+<span class="sd">    python x.py --mode.option value</span>
+
+<span class="sd">This marker can be applied globally via :func:``tyro.cli()``&#39;s ``config=``</span>
+<span class="sd">argument, to entire dataclasses, or to individual arguments.</span>
+
+<span class="sd">**Cascading behavior:** An argument defined at level N is visible at level N</span>
+<span class="sd">and all levels below it (N+1, N+2, ...). Arguments from a subcommand do not</span>
+<span class="sd">cascade upward to parent parsers.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">ConsolidateSubcommandArgs</span> <span class="o">=</span> <span class="n">CascadeSubcommandArgs</span>
+<span class="sd">&quot;&quot;&quot;Consolidate arguments for nested subcommands to make CLI less position-sensitive.</span>
+
+<span class="sd">.. deprecated:: 1.0.0</span>
+<span class="sd">   Use :data:`CascadeSubcommandArgs` instead. :data:`ConsolidateSubcommandArgs` is an</span>
+<span class="sd">   alias for :data:`CascadeSubcommandArgs` and will be removed in a future version.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="n">OmitSubcommandPrefixes</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
@@ -639,6 +702,46 @@
 <span class="sd">even when this marker is applied.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="n">DisallowNone</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="sd">&quot;&quot;&quot;Disallow passing `None` in via the command-line interface for union types</span>
+<span class="sd">containing ``None``.</span>
+
+<span class="sd">Example::</span>
+
+<span class="sd">    @dataclass</span>
+<span class="sd">    class Config:</span>
+<span class="sd">        field: DisallowNone[int | None] = None</span>
+
+<span class="sd">In this case, `None` can still be used as a default value. However, ``--field</span>
+<span class="sd">None`` will raise an error. This can be useful when used in conjunction with</span>
+<span class="sd">:func:`tyro.conf.mutually_exclusive_group`.</span>
+
+<span class="sd">This only impacts union types. For cases like ``field: None`` where only</span>
+<span class="sd">``None`` is allowed, we still accept ``--field None``.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">NewSubcommandForDefaults</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="sd">&quot;&quot;&quot;Create a new &#39;default&#39; subcommand when unions over structs have a default</span>
+<span class="sd">value.</span>
+
+<span class="sd">Example::</span>
+
+<span class="sd">    @dataclass</span>
+<span class="sd">    class Config:</span>
+<span class="sd">        x: NewSubcommandForDefaults[StructA | StructB] = StructA(...)</span>
+
+<span class="sd">This example would create three subcommands: ``x:struct-a``, ``x:struct-b``,</span>
+<span class="sd">and ``x:default``.</span>
+
+<span class="sd">When a union field has a default value, tyro normally matches it to an existing</span>
+<span class="sd">subcommand based on type compatibility and overwrites that subcommand&#39;s</span>
+<span class="sd">defaults with values from the provided default. This means the original</span>
+<span class="sd">subcommand loses its original default values. This marker is useful for making</span>
+<span class="sd">sure that original subcommand defaults are preserved.</span>
+
+<span class="sd">Tip: consider also applying :data:`CascadeSubcommandArgs`.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
 
 <span class="n">CallableType</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;CallableType&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">Callable</span><span class="p">)</span>
 
@@ -725,7 +828,7 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024
+                Copyright &#169; 2026
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             

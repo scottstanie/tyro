@@ -44,7 +44,7 @@ Package Contents
 
    .. code-block:: python
 
-       def main(inner: Dataclass = tyro.constructors.MISSING_NONPROP) -> None:
+       def main(inner: Dataclass = tyro.MISSING_NONPROP) -> None:
            ...
 
        tyro.cli(main)
@@ -139,17 +139,17 @@ Package Contents
 
       Set of tyro markers used to configure this field.
 
-   .. py:method:: make(raw_annotation: tyro._typing.TypeForm | Callable, parent_markers: set[tyro.conf._markers.Marker]) -> PrimitiveTypeInfo
+   .. py:method:: make(raw_annotation: tyro._typing.TypeForm | Callable, parent_markers: set[tyro.conf._markers.Marker], exclude_markers: set[tyro.conf._markers.Marker] | None = None) -> PrimitiveTypeInfo
       :staticmethod:
 
 
 
-.. py:exception:: UnsupportedTypeAnnotationError
+.. py:exception:: UnsupportedTypeAnnotationError(message: tuple[tyro._fmtlib._Text, Ellipsis])
 
 
    Bases: :py:obj:`Exception`
 
-   Exception raised when an unsupported type annotation is detected.
+   Exception raised when a type annotation is not supported.
 
 
 .. py:class:: ConstructorRegistry
@@ -221,11 +221,16 @@ Package Contents
       Get a constructor specification for a given type.
 
 
-   .. py:method:: get_struct_spec(type_info: tyro.constructors._struct_spec.StructTypeInfo) -> tyro.constructors._struct_spec.StructConstructorSpec | None
+   .. py:method:: get_struct_spec(type_info: tyro.constructors._struct_spec.StructTypeInfo) -> tyro.constructors._struct_spec.StructConstructorSpec | tyro.constructors._struct_spec.InvalidDefaultInstanceError | None
       :classmethod:
 
-      Get a constructor specification for a given type. Returns `None` if
-      unsuccessful.
+      Get a constructor specification for a given type.
+
+      :returns:
+
+                - StructConstructorSpec if the type can be handled as a struct.
+                - InvalidDefaultInstanceError if the type can be handled, but the provided default instance is incompatible with the type.
+                - None if the type cannot be handled as a struct (no matching rule found).
 
 
    .. py:method:: __enter__() -> None
@@ -281,9 +286,9 @@ Package Contents
       The default value of the field.
 
    .. py:attribute:: helptext
-      :type: str | None
+      :type: str | Callable[[], str | None] | None
 
-      Helpjext for the field.
+      Helptext for the field.
 
    .. py:attribute:: is_default_overridden
       :type: None
@@ -314,7 +319,14 @@ Package Contents
       function signature, this is ``X`` in ``def main(x=X): ...``. This can be
       useful for populating the default values of the struct.
 
-   .. py:method:: make(f: tyro._typing.TypeForm | Callable, default: Any) -> StructTypeInfo
+   .. py:attribute:: in_union_context
+      :type: bool
+
+      Flag indicating whether this type is being evaluated as part of a union.
+      When True, allows collection types like List[Struct] or Dict[str, Struct]
+      without defaults to be treated as struct types for subcommand creation.
+
+   .. py:method:: make(f: tyro._typing.TypeForm | Callable, default: Any, in_union_context: bool) -> StructTypeInfo
       :staticmethod:
 
 

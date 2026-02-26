@@ -15,11 +15,12 @@
     <link rel="index" title="Index" href="../../genindex/" /><link rel="search" title="Search" href="../../search/" /><link rel="next" title="Subcommands" href="../subcommands/" /><link rel="prev" title="Basics" href="../basics/" />
 
     <!-- Generated with Sphinx 8.0.2 and Furo 2024.08.06 -->
-        <title>Hierarchical Structures - tyro</title>
+        <title>Hierarchical structures - tyro</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/compact_table_header.css?v=932cb7ac" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/compact_table_header.css?v=8cbb8801" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/tyro_demo.css?v=5ed90e8d" />
     <link rel="stylesheet" type="text/css" href="../../_static/ansi.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
     
@@ -201,16 +202,22 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../">
-  
-  <div class="sidebar-logo-container">
-    <img class="sidebar-logo only-light" src="../../_static/logo-light.svg" alt="Light Logo"/>
-    <img class="sidebar-logo only-dark" src="../../_static/logo-dark.svg" alt="Dark Logo"/>
-  </div>
+      <div class="sidebar-sticky"><a
+  class="sidebar-brand"
+  href="../../"
+  style="margin-top: 0.75em"
+>
   
   <span class="sidebar-brand-text">tyro</span>
+
   
-</a><form class="sidebar-search-container" method="get" action="../../search/" role="search">
+</a>
+
+<div style="text-align: left; padding: 0 1em 1em 1em">
+  <a href="https://github.com/brentyi/tyro">
+    <img src="https://img.shields.io/github/stars/brentyi/tyro?style=social" alt="GitHub stars">
+  </a>
+</div><form class="sidebar-search-container" method="get" action="../../search/" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
@@ -219,15 +226,15 @@
   <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../your_first_cli/">Your First CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../your_first_cli/">Your first CLI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../whats_supported/">What’s supported</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../basics/">Basics</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Hierarchical Structures</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Hierarchical structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../subcommands/">Subcommands</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../overriding_configs/">Overriding Configs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overriding_configs/">Overriding configs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../generics/">Generics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../custom_constructors/">Custom constructors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../pytorch_jax/">PyTorch / JAX</a></li>
@@ -237,6 +244,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../goals_and_alternatives/">Goals and alternatives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../helptext_generation/">Helptext generation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tab_completion/">Tab completion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../wandb_sweeps/">W&amp;B sweep compatibility</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
@@ -287,13 +295,13 @@
         </div>
         <article role="main" id="furo-main-content">
           <section id="hierarchical-structures">
-<span id="example-category-hierarchical-structures"></span><h1>Hierarchical Structures<a class="headerlink" href="#hierarchical-structures" title="Link to this heading">¶</a></h1>
+<span id="example-category-hierarchical-structures"></span><h1>Hierarchical structures<a class="headerlink" href="#hierarchical-structures" title="Link to this heading">¶</a></h1>
 <p>In these examples, we show how <a class="reference internal" href="../../api/tyro/#tyro.cli" title="tyro.cli"><code class="xref py py-func docutils literal notranslate"><span class="pre">tyro.cli()</span></code></a> can be used to instantiate
 hierarchical structures. This can enable modular, reusable, and composable CLI
 interfaces.</p>
 <section id="nested-dataclasses">
-<span id="example-01-nesting"></span><h2>Nested Dataclasses<a class="headerlink" href="#nested-dataclasses" title="Link to this heading">¶</a></h2>
-<p>Structures (typically <a class="reference external" href="https://docs.python.org/3/library/dataclasses.html#dataclasses.dataclass" title="(in Python v3.13)"><code class="xref py py-func docutils literal notranslate"><span class="pre">dataclasses.dataclass()</span></code></a>) can be nested to build hierarchical configuration
+<span id="example-01-nesting"></span><h2>Nested dataclasses<a class="headerlink" href="#nested-dataclasses" title="Link to this heading">¶</a></h2>
+<p>Structures (typically <a class="reference external" href="https://docs.python.org/3/library/dataclasses.html#dataclasses.dataclass" title="(in Python v3.14)"><code class="xref py py-func docutils literal notranslate"><span class="pre">dataclasses.dataclass()</span></code></a>) can be nested to build hierarchical configuration
 objects. This helps with modularity and grouping in larger projects.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># 01_nesting.py</span>
 <span class="linenos"> 2</span><span class="kn">import</span><span class="w"> </span><span class="nn">dataclasses</span>
@@ -320,21 +328,20 @@ objects. This helps with modularity and grouping in larger projects.</p>
 </div>
 <pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./01_nesting.py --help</strong>
-<span style="font-weight: bold">usage</span>: 01_nesting.py [-h] [--seed <span style="font-weight: bold">INT</span>] [--opt.learning-rate <span style="font-weight: bold">FLOAT</span>]
-                     [--opt.weight-decay <span style="font-weight: bold">FLOAT</span>]
+<span style="font-weight: bold">usage:</span> ./01_nesting.py [-h] [--seed <span style="font-weight: bold">INT</span>] [--opt.learning-rate <span style="font-weight: bold">FLOAT</span>] [--opt.weight-decay <span style="font-weight: bold">FLOAT</span>]
 
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> options </span><span style="font-weight: lighter">────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> -h, --help        <span style="font-weight: lighter">show this help message and exit</span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --seed <span style="font-weight: bold">INT</span>        <span style="font-weight: lighter">Random seed.</span> <span style="color: #008080">(default: 0)</span>       <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰───────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> opt options </span><span style="font-weight: lighter">────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> <span style="font-weight: bold">Optimizer options.                               </span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> <span style="font-weight: lighter">───────────────────────────────────              </span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --opt.learning-rate <span style="font-weight: bold">FLOAT</span>                         <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="color: #008080">(default: 0.0003)</span>               <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --opt.weight-decay <span style="font-weight: bold">FLOAT</span>                          <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="color: #008080">(default: 0.01)</span>                 <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰───────────────────────────────────────────────────╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">options</span> <span style="font-weight: lighter; color: #808080">───────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> -h, --help  <span style="font-weight: lighter">show</span><span style="font-weight: lighter"> this</span><span style="font-weight: lighter"> help</span><span style="font-weight: lighter"> message</span><span style="font-weight: lighter"> and</span><span style="font-weight: lighter"> exit</span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --seed <span style="font-weight: bold">INT  </span><span style="font-weight: lighter">Random</span><span style="font-weight: lighter"> seed.</span> <span style="color: #008080">(default:</span><span style="color: #008080"> 0)      </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">─────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">opt</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">───────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> Optimizer options.                          <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> <span style="font-weight: lighter; color: #808080">───────────────────────────────────────────</span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --opt.learning-rate <span style="font-weight: bold">FLOAT                  </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>             <span style="color: #008080">(default:</span><span style="color: #008080"> 0.0003)              </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --opt.weight-decay <span style="font-weight: bold">FLOAT                   </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>             <span style="color: #008080">(default:</span><span style="color: #008080"> 0.01)                </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">─────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
 </pre><pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./01_nesting.py --opt.learning-rate 1e-3</strong>
 {'opt': {'learning_rate': 0.001, 'weight_decay': 0.01}, 'seed': 0}
@@ -343,7 +350,7 @@ objects. This helps with modularity and grouping in larger projects.</p>
 {'opt': {'learning_rate': 0.0003, 'weight_decay': 0.01}, 'seed': 4}
 </pre></section>
 <section id="structures-as-function-arguments">
-<span id="example-02-nesting-in-func"></span><h2>Structures as Function Arguments<a class="headerlink" href="#structures-as-function-arguments" title="Link to this heading">¶</a></h2>
+<span id="example-02-nesting-in-func"></span><h2>Structures as function arguments<a class="headerlink" href="#structures-as-function-arguments" title="Link to this heading">¶</a></h2>
 <p>Structures can be used as input to functions.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># 02_nesting_in_func.py</span>
 <span class="linenos"> 2</span><span class="kn">import</span><span class="w"> </span><span class="nn">dataclasses</span>
@@ -383,27 +390,27 @@ objects. This helps with modularity and grouping in larger projects.</p>
 </div>
 <pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./02_nesting_in_func.py --help</strong>
-<span style="font-weight: bold">usage</span>: 02_nesting_in_func.py [-h] [OPTIONS]
+<span style="font-weight: bold">usage:</span> ./02_nesting_in_func.py [-h] [OPTIONS]
 
 Train a model.
 
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> options </span><span style="font-weight: lighter">─────────────────────────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> -h, --help              <span style="font-weight: lighter">show this help message and exit</span>                <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --out-dir <span style="font-weight: bold">PATH</span>          <span style="font-weight: lighter">Where to save logs and checkpoints.</span> <span style="font-weight: bold; color: #e60000">(required)</span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰────────────────────────────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> config options </span><span style="font-weight: lighter">──────────────────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> <span style="font-weight: bold">Experiment configuration.                                             </span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> <span style="font-weight: lighter">─────────────────────────────────────────────────                     </span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --config.seed <span style="font-weight: bold">INT</span>       <span style="font-weight: lighter">Random seed.</span> <span style="color: #008080">(default: 0)</span>                      <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰────────────────────────────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> config.optimizer options </span><span style="font-weight: lighter">────────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> <span style="font-weight: bold">Optimizer options.                                                    </span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> <span style="font-weight: lighter">─────────────────────────────────────────────────                     </span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --config.optimizer.learning-rate <span style="font-weight: bold">FLOAT</span>                                 <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                         <span style="color: #008080">(default: 0.0003)</span>                              <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --config.optimizer.weight-decay <span style="font-weight: bold">FLOAT</span>                                  <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                         <span style="color: #008080">(default: 0.01)</span>                                <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰────────────────────────────────────────────────────────────────────────╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">options</span> <span style="font-weight: lighter; color: #808080">─────────────────────────────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> -h, --help         <span style="font-weight: lighter">show</span><span style="font-weight: lighter"> this</span><span style="font-weight: lighter"> help</span><span style="font-weight: lighter"> message</span><span style="font-weight: lighter"> and</span><span style="font-weight: lighter"> exit               </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --out-dir <span style="font-weight: bold">PATH     </span><span style="font-weight: lighter">Where</span><span style="font-weight: lighter"> to</span><span style="font-weight: lighter"> save</span><span style="font-weight: lighter"> logs</span><span style="font-weight: lighter"> and</span><span style="font-weight: lighter"> checkpoints.</span> <span style="color: #e60000">(required)</span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">───────────────────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">config</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">──────────────────────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> Experiment configuration.                                         <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> <span style="font-weight: lighter; color: #808080">─────────────────────────────────────────────────────────────────</span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --config.seed <span style="font-weight: bold">INT  </span><span style="font-weight: lighter">Random</span><span style="font-weight: lighter"> seed.</span> <span style="color: #008080">(default:</span><span style="color: #008080"> 0)                     </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">───────────────────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">config.optimizer</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">────────────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> Optimizer options.                                                <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> <span style="font-weight: lighter; color: #808080">─────────────────────────────────────────────────────────────────</span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --config.optimizer.learning-rate <span style="font-weight: bold">FLOAT                           </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>                    <span style="color: #008080">(default:</span><span style="color: #008080"> 0.0003)                             </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --config.optimizer.weight-decay <span style="font-weight: bold">FLOAT                            </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>                    <span style="color: #008080">(default:</span><span style="color: #008080"> 0.01)                               </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">───────────────────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
 </pre><pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./02_nesting_in_func.py --out-dir /tmp/test1</strong>
 Saving to: /tmp/test1
@@ -414,7 +421,7 @@ Saving to: /tmp/test2
 Config: Config(optimizer=OptimizerConfig(learning_rate=0.0003, weight_decay=0.01), seed=4)
 </pre></section>
 <section id="nesting-in-containers">
-<span id="example-03-nesting-containers"></span><h2>Nesting in Containers<a class="headerlink" href="#nesting-in-containers" title="Link to this heading">¶</a></h2>
+<span id="example-03-nesting-containers"></span><h2>Nesting in containers<a class="headerlink" href="#nesting-in-containers" title="Link to this heading">¶</a></h2>
 <p>Structures can be nested inside of standard containers.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -452,49 +459,43 @@ value.</p>
 </div>
 <pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./03_nesting_containers.py --help</strong>
-<span style="font-weight: bold">usage</span>: 03_nesting_containers.py [-h] [OPTIONS]
+<span style="font-weight: bold">usage:</span> ./03_nesting_containers.py [-h] [OPTIONS]
 
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> options </span><span style="font-weight: lighter">──────────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> -h, --help              <span style="font-weight: lighter">show this help message and exit</span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰─────────────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> color-tuple.0 options </span><span style="font-weight: lighter">────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> --color-tuple.0.r <span style="font-weight: bold">INT</span>   <span style="font-weight: bold; color: #e60000">(required)</span>                      <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --color-tuple.0.g <span style="font-weight: bold">INT</span>   <span style="font-weight: bold; color: #e60000">(required)</span>                      <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --color-tuple.0.b <span style="font-weight: bold">INT</span>   <span style="font-weight: bold; color: #e60000">(required)</span>                      <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰─────────────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> color-tuple.1 options </span><span style="font-weight: lighter">────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> --color-tuple.1.r <span style="font-weight: bold">INT</span>   <span style="font-weight: bold; color: #e60000">(required)</span>                      <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --color-tuple.1.g <span style="font-weight: bold">INT</span>   <span style="font-weight: bold; color: #e60000">(required)</span>                      <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --color-tuple.1.b <span style="font-weight: bold">INT</span>   <span style="font-weight: bold; color: #e60000">(required)</span>                      <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰─────────────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> color-dict.red options </span><span style="font-weight: lighter">───────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> --color-dict.red.r <span style="font-weight: bold">INT</span>  <span style="color: #008080">(default: 255)</span>                  <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --color-dict.red.g <span style="font-weight: bold">INT</span>  <span style="color: #008080">(default: 0)</span>                    <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --color-dict.red.b <span style="font-weight: bold">INT</span>  <span style="color: #008080">(default: 0)</span>                    <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰─────────────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> color-dict.green options </span><span style="font-weight: lighter">─────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> --color-dict.green.r <span style="font-weight: bold">INT</span>                                <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                         <span style="color: #008080">(default: 0)</span>                    <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --color-dict.green.g <span style="font-weight: bold">INT</span>                                <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                         <span style="color: #008080">(default: 255)</span>                  <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --color-dict.green.b <span style="font-weight: bold">INT</span>                                <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                         <span style="color: #008080">(default: 0)</span>                    <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰─────────────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> color-dict.blue options </span><span style="font-weight: lighter">──────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> --color-dict.blue.r <span style="font-weight: bold">INT</span>                                 <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                         <span style="color: #008080">(default: 0)</span>                    <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --color-dict.blue.g <span style="font-weight: bold">INT</span>                                 <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                         <span style="color: #008080">(default: 0)</span>                    <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --color-dict.blue.b <span style="font-weight: bold">INT</span>                                 <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                         <span style="color: #008080">(default: 255)</span>                  <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰─────────────────────────────────────────────────────────╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">options</span> <span style="font-weight: lighter; color: #808080">─────────────────────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> -h, --help                <span style="font-weight: lighter">show</span><span style="font-weight: lighter"> this</span><span style="font-weight: lighter"> help</span><span style="font-weight: lighter"> message</span><span style="font-weight: lighter"> and</span><span style="font-weight: lighter"> exit</span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">───────────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">color-tuple.0</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">───────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> --color-tuple.0.r <span style="font-weight: bold">INT     </span><span style="color: #e60000">(required)                     </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --color-tuple.0.g <span style="font-weight: bold">INT     </span><span style="color: #e60000">(required)                     </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --color-tuple.0.b <span style="font-weight: bold">INT     </span><span style="color: #e60000">(required)                     </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">───────────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">color-tuple.1</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">───────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> --color-tuple.1.r <span style="font-weight: bold">INT     </span><span style="color: #e60000">(required)                     </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --color-tuple.1.g <span style="font-weight: bold">INT     </span><span style="color: #e60000">(required)                     </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --color-tuple.1.b <span style="font-weight: bold">INT     </span><span style="color: #e60000">(required)                     </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">───────────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">color-dict.red</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">──────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> --color-dict.red.r <span style="font-weight: bold">INT    </span><span style="color: #008080">(default:</span><span style="color: #008080"> 255)                 </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --color-dict.red.g <span style="font-weight: bold">INT    </span><span style="color: #008080">(default:</span><span style="color: #008080"> 0)                   </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --color-dict.red.b <span style="font-weight: bold">INT    </span><span style="color: #008080">(default:</span><span style="color: #008080"> 0)                   </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">───────────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">color-dict.green</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> --color-dict.green.r <span style="font-weight: bold">INT  </span><span style="color: #008080">(default:</span><span style="color: #008080"> 0)                   </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --color-dict.green.g <span style="font-weight: bold">INT  </span><span style="color: #008080">(default:</span><span style="color: #008080"> 255)                 </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --color-dict.green.b <span style="font-weight: bold">INT  </span><span style="color: #008080">(default:</span><span style="color: #008080"> 0)                   </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">───────────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">color-dict.blue</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">─────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> --color-dict.blue.r <span style="font-weight: bold">INT   </span><span style="color: #008080">(default:</span><span style="color: #008080"> 0)                   </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --color-dict.blue.g <span style="font-weight: bold">INT   </span><span style="color: #008080">(default:</span><span style="color: #008080"> 0)                   </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --color-dict.blue.b <span style="font-weight: bold">INT   </span><span style="color: #008080">(default:</span><span style="color: #008080"> 255)                 </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">───────────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
 </pre></section>
 <section id="dictionaries-and-typeddict">
-<span id="example-04-dictionaries"></span><h2>Dictionaries and TypedDict<a class="headerlink" href="#dictionaries-and-typeddict" title="Link to this heading">¶</a></h2>
+<span id="example-04-dictionaries"></span><h2>Dictionaries and <code class="docutils literal notranslate"><span class="pre">TypedDict</span></code><a class="headerlink" href="#dictionaries-and-typeddict" title="Link to this heading">¶</a></h2>
 <p>Dictionary inputs can be specified using either a standard <code class="docutils literal notranslate"><span class="pre">dict[K,</span> <span class="pre">V]</span></code>
 annotation, or a <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code> subclass.</p>
 <p>For configuring <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code>, we also support <code class="code docutils literal notranslate"><span class="pre">total={True/False}</span></code>,
-<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Required" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Required</span></code></a>, and <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.NotRequired" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.NotRequired</span></code></a>. See the <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypedDict">Python docs</a> for all <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code> features.</p>
+<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Required" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Required</span></code></a>, and <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.NotRequired" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.NotRequired</span></code></a>. See the <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypedDict">Python docs</a> for all <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code> features.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># 04_dictionaries.py</span>
 <span class="linenos"> 2</span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypedDict</span>
 <span class="linenos"> 3</span>
@@ -537,32 +538,34 @@ annotation, or a <code class="xref py py-class docutils literal notranslate"><sp
 </div>
 <pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./04_dictionaries.py --help</strong>
-<span style="font-weight: bold">usage</span>: 04_dictionaries.py [-h] [OPTIONS]
+<span style="font-weight: bold">usage:</span> ./04_dictionaries.py [-h] [OPTIONS]
 
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> options </span><span style="font-weight: lighter">─────────────────────────────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> -h, --help        <span style="font-weight: lighter">show this help message and exit</span>                          <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰────────────────────────────────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> typed-dict-a options </span><span style="font-weight: lighter">────────────────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> --typed-dict-a.learning-rate <span style="font-weight: bold">FLOAT</span>                                         <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="color: #008080">(unset by default)</span>                                       <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --typed-dict-a.betas <span style="font-weight: bold">FLOAT FLOAT</span>                                           <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="color: #008080">(unset by default)</span>                                       <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰────────────────────────────────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> typed-dict-b options </span><span style="font-weight: lighter">────────────────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> --typed-dict-b.learning-rate <span style="font-weight: bold">FLOAT</span>                                         <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="font-weight: lighter">NotRequired[] specifies that a particular key doesn't </span>   <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="font-weight: lighter">need to exist.</span> <span style="color: #008080">(unset by default)</span>                        <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --typed-dict-b.betas <span style="font-weight: bold">FLOAT FLOAT</span>                                           <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="font-weight: bold; color: #e60000">(required)</span>                                               <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰────────────────────────────────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> standard-dict options </span><span style="font-weight: lighter">───────────────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> --standard-dict.learning-rate <span style="font-weight: bold">FLOAT</span>                                        <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="color: #008080">(default: 0.0003)</span>                                        <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --standard-dict.beta1 <span style="font-weight: bold">FLOAT</span>                                                <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="color: #008080">(default: 0.9)</span>                                           <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --standard-dict.beta2 <span style="font-weight: bold">FLOAT</span>                                                <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="color: #008080">(default: 0.999)</span>                                         <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰────────────────────────────────────────────────────────────────────────────╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">options</span> <span style="font-weight: lighter; color: #808080">────────────────────────────────────────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> -h, --help                                                                   <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="font-weight: lighter">show</span><span style="font-weight: lighter"> this</span><span style="font-weight: lighter"> help</span><span style="font-weight: lighter"> message</span><span style="font-weight: lighter"> and</span><span style="font-weight: lighter"> exit                                       </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">──────────────────────────────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">typed-dict-a</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">───────────────────────────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> --typed-dict-a.learning-rate <span style="font-weight: bold">FLOAT                                          </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="color: #008080">(unset</span><span style="color: #008080"> by</span><span style="color: #008080"> default)                                                    </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --typed-dict-a.betas <span style="font-weight: bold">FLOAT</span><span style="font-weight: bold"> FLOAT                                            </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="color: #008080">(unset</span><span style="color: #008080"> by</span><span style="color: #008080"> default)                                                    </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">──────────────────────────────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">typed-dict-b</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">───────────────────────────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> --typed-dict-b.learning-rate <span style="font-weight: bold">FLOAT                                          </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="font-weight: lighter">NotRequired[]</span><span style="font-weight: lighter"> specifies</span><span style="font-weight: lighter"> that</span><span style="font-weight: lighter"> a</span><span style="font-weight: lighter"> particular</span><span style="font-weight: lighter"> key</span><span style="font-weight: lighter"> doesn't</span><span style="font-weight: lighter"> need</span><span style="font-weight: lighter"> to</span><span style="font-weight: lighter"> exist.</span>   <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="color: #008080">(unset</span><span style="color: #008080"> by</span><span style="color: #008080"> default)                                                    </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --typed-dict-b.betas <span style="font-weight: bold">FLOAT</span><span style="font-weight: bold"> FLOAT                                            </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="color: #e60000">(required)                                                            </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">──────────────────────────────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">standard-dict</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">──────────────────────────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> --standard-dict.learning-rate <span style="font-weight: bold">FLOAT                                         </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="color: #008080">(default:</span><span style="color: #008080"> 0.0003)                                                     </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --standard-dict.beta1 <span style="font-weight: bold">FLOAT                                                 </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="color: #008080">(default:</span><span style="color: #008080"> 0.9)                                                        </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --standard-dict.beta2 <span style="font-weight: bold">FLOAT                                                 </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="color: #008080">(default:</span><span style="color: #008080"> 0.999)                                                      </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">──────────────────────────────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
 </pre><pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./04_dictionaries.py --typed-dict-a.learning-rate 3e-4 --typed-dict-b.betas 0.9 0.999</strong>
 Typed dict A: {'learning_rate': 0.0003}
@@ -575,9 +578,9 @@ Typed dict B: {'betas': (0.9, 0.999)}
 Standard dict: {'learning_rate': 0.0003, 'beta1': 0.9, 'beta2': 0.999}
 </pre></section>
 <section id="tuples-and-namedtuple">
-<span id="example-05-tuples"></span><h2>Tuples and NamedTuple<a class="headerlink" href="#tuples-and-namedtuple" title="Link to this heading">¶</a></h2>
-<p>Example using <a class="reference internal" href="../../api/tyro/#tyro.cli" title="tyro.cli"><code class="xref py py-func docutils literal notranslate"><span class="pre">tyro.cli()</span></code></a> to instantiate tuple types. <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>,
-<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Tuple</span></code></a>, and <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.NamedTuple" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">typing.NamedTuple</span></code></a> are all supported.</p>
+<span id="example-05-tuples"></span><h2>Tuples and <code class="docutils literal notranslate"><span class="pre">NamedTuple</span></code><a class="headerlink" href="#tuples-and-namedtuple" title="Link to this heading">¶</a></h2>
+<p>Example using <a class="reference internal" href="../../api/tyro/#tyro.cli" title="tyro.cli"><code class="xref py py-func docutils literal notranslate"><span class="pre">tyro.cli()</span></code></a> to instantiate tuple types. <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>,
+<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Tuple</span></code></a>, and <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.NamedTuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">typing.NamedTuple</span></code></a> are all supported.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># 05_tuples.py</span>
 <span class="linenos"> 2</span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedTuple</span>
 <span class="linenos"> 3</span>
@@ -607,25 +610,24 @@ Standard dict: {'learning_rate': 0.0003, 'beta1': 0.9, 'beta2': 0.999}
 </div>
 <pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./05_tuples.py --help</strong>
-<span style="font-weight: bold">usage</span>: 05_tuples.py [-h] [OPTIONS]
+<span style="font-weight: bold">usage:</span> ./05_tuples.py [-h] [OPTIONS]
 
 Description. This should show up in the helptext!
 
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> options </span><span style="font-weight: lighter">─────────────────────────────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> -h, --help              <span style="font-weight: lighter">show this help message and exit</span>                    <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --color <span style="font-weight: bold">INT INT INT</span>     <span style="font-weight: lighter">Tuple types can contain raw values.</span> <span style="color: #008080">(default: 255 </span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                         <span style="color: #008080">0 0)</span>                                               <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰────────────────────────────────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> two-colors.0 options </span><span style="font-weight: lighter">────────────────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> --two-colors.0.r <span style="font-weight: bold">INT</span>    <span style="color: #008080">(default: 255)</span>                                     <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --two-colors.0.g <span style="font-weight: bold">INT</span>    <span style="color: #008080">(default: 0)</span>                                       <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --two-colors.0.b <span style="font-weight: bold">INT</span>    <span style="color: #008080">(default: 0)</span>                                       <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰────────────────────────────────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> two-colors.1 options </span><span style="font-weight: lighter">────────────────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> --two-colors.1.r <span style="font-weight: bold">INT</span>    <span style="color: #008080">(default: 0)</span>                                       <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --two-colors.1.g <span style="font-weight: bold">INT</span>    <span style="color: #008080">(default: 255)</span>                                     <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --two-colors.1.b <span style="font-weight: bold">INT</span>    <span style="color: #008080">(default: 0)</span>                                       <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰────────────────────────────────────────────────────────────────────────────╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">options</span> <span style="font-weight: lighter; color: #808080">────────────────────────────────────────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> -h, --help            <span style="font-weight: lighter">show</span><span style="font-weight: lighter"> this</span><span style="font-weight: lighter"> help</span><span style="font-weight: lighter"> message</span><span style="font-weight: lighter"> and</span><span style="font-weight: lighter"> exit                       </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --color <span style="font-weight: bold">INT</span><span style="font-weight: bold"> INT</span><span style="font-weight: bold"> INT   </span><span style="font-weight: lighter">Tuple</span><span style="font-weight: lighter"> types</span><span style="font-weight: lighter"> can</span><span style="font-weight: lighter"> contain</span><span style="font-weight: lighter"> raw</span><span style="font-weight: lighter"> values.</span> <span style="color: #008080">(default:</span><span style="color: #008080"> 255</span><span style="color: #008080"> 0</span><span style="color: #008080"> 0)</span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">──────────────────────────────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">two-colors.0</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">───────────────────────────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> --two-colors.0.r <span style="font-weight: bold">INT  </span><span style="color: #008080">(default:</span><span style="color: #008080"> 255)                                        </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --two-colors.0.g <span style="font-weight: bold">INT  </span><span style="color: #008080">(default:</span><span style="color: #008080"> 0)                                          </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --two-colors.0.b <span style="font-weight: bold">INT  </span><span style="color: #008080">(default:</span><span style="color: #008080"> 0)                                          </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">──────────────────────────────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">two-colors.1</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">───────────────────────────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> --two-colors.1.r <span style="font-weight: bold">INT  </span><span style="color: #008080">(default:</span><span style="color: #008080"> 0)                                          </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --two-colors.1.g <span style="font-weight: bold">INT  </span><span style="color: #008080">(default:</span><span style="color: #008080"> 255)                                        </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --two-colors.1.b <span style="font-weight: bold">INT  </span><span style="color: #008080">(default:</span><span style="color: #008080"> 0)                                          </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">──────────────────────────────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
 </pre><pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./05_tuples.py --color 127 127 127</strong>
 TupleType(color=(127, 127, 127), two_colors=(Color(r=255, g=0, b=0), Color(r=0, g=255, b=0)))
@@ -634,7 +636,7 @@ TupleType(color=(127, 127, 127), two_colors=(Color(r=255, g=0, b=0), Color(r=0, 
 TupleType(color=(255, 0, 0), two_colors=(Color(r=255, g=0, b=0), Color(r=127, g=0, b=0)))
 </pre></section>
 <section id="pydantic-integration">
-<span id="example-06-pydantic"></span><h2>Pydantic Integration<a class="headerlink" href="#pydantic-integration" title="Link to this heading">¶</a></h2>
+<span id="example-06-pydantic"></span><h2>Pydantic integration<a class="headerlink" href="#pydantic-integration" title="Link to this heading">¶</a></h2>
 <p>In addition to standard dataclasses, <a class="reference internal" href="../../api/tyro/#tyro.cli" title="tyro.cli"><code class="xref py py-func docutils literal notranslate"><span class="pre">tyro.cli()</span></code></a> also supports
 <a class="reference external" href="https://github.com/pydantic/pydantic">Pydantic</a> models.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># 06_pydantic.py</span>
@@ -656,15 +658,15 @@ TupleType(color=(255, 0, 0), two_colors=(Color(r=255, g=0, b=0), Color(r=127, g=
 </div>
 <pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./06_pydantic.py --help</strong>
-<span style="font-weight: bold">usage</span>: 06_pydantic.py [-h] --field1 <span style="font-weight: bold">STR</span> [--field2 <span style="font-weight: bold">INT</span>]
+<span style="font-weight: bold">usage:</span> ./06_pydantic.py [-h] --field1 <span style="font-weight: bold">STR</span> [--field2 <span style="font-weight: bold">INT</span>]
 
 Description. This should show up in the helptext!
 
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> options </span><span style="font-weight: lighter">──────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> -h, --help          <span style="font-weight: lighter">show this help message and exit</span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --field1 <span style="font-weight: bold">STR</span>        <span style="font-weight: bold; color: #e60000">(required)</span>                      <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --field2 <span style="font-weight: bold">INT</span>        <span style="font-weight: lighter">An integer field.</span> <span style="color: #008080">(default: 3)</span>  <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰─────────────────────────────────────────────────────╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">options</span> <span style="font-weight: lighter; color: #808080">─────────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> -h, --help    <span style="font-weight: lighter">show</span><span style="font-weight: lighter"> this</span><span style="font-weight: lighter"> help</span><span style="font-weight: lighter"> message</span><span style="font-weight: lighter"> and</span><span style="font-weight: lighter"> exit</span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --field1 <span style="font-weight: bold">STR  </span><span style="color: #e60000">(required)                     </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --field2 <span style="font-weight: bold">INT  </span><span style="font-weight: lighter">An</span><span style="font-weight: lighter"> integer</span><span style="font-weight: lighter"> field.</span> <span style="color: #008080">(default:</span><span style="color: #008080"> 3) </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">───────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
 </pre><pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./06_pydantic.py --field1 hello</strong>
 field1='hello' field2=3
@@ -673,7 +675,7 @@ field1='hello' field2=3
 field1='hello' field2=5
 </pre></section>
 <section id="attrs-integration">
-<span id="example-07-attrs"></span><h2>Attrs Integration<a class="headerlink" href="#attrs-integration" title="Link to this heading">¶</a></h2>
+<span id="example-07-attrs"></span><h2>Attrs integration<a class="headerlink" href="#attrs-integration" title="Link to this heading">¶</a></h2>
 <p>In addition to standard dataclasses, <a class="reference internal" href="../../api/tyro/#tyro.cli" title="tyro.cli"><code class="xref py py-func docutils literal notranslate"><span class="pre">tyro.cli()</span></code></a> also supports
 <a class="reference external" href="https://www.attrs.org/">attrs</a> classes.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># 07_attrs.py</span>
@@ -699,15 +701,15 @@ field1='hello' field2=5
 </div>
 <pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./07_attrs.py --help</strong>
-<span style="font-weight: bold">usage</span>: 07_attrs.py [-h] --field1 <span style="font-weight: bold">STR</span> [--field2 <span style="font-weight: bold">INT</span>]
+<span style="font-weight: bold">usage:</span> ./07_attrs.py [-h] --field1 <span style="font-weight: bold">STR</span> [--field2 <span style="font-weight: bold">INT</span>]
 
 Description. This should show up in the helptext!
 
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> options </span><span style="font-weight: lighter">─────────────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> -h, --help          <span style="font-weight: lighter">show this help message and exit</span>        <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --field1 <span style="font-weight: bold">STR</span>        <span style="font-weight: lighter">A string field.</span> <span style="font-weight: bold; color: #e60000">(required)</span>             <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --field2 <span style="font-weight: bold">INT</span>        <span style="font-weight: lighter">A required integer field.</span> <span style="color: #008080">(default: 5)</span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰────────────────────────────────────────────────────────────╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">options</span> <span style="font-weight: lighter; color: #808080">────────────────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> -h, --help    <span style="font-weight: lighter">show</span><span style="font-weight: lighter"> this</span><span style="font-weight: lighter"> help</span><span style="font-weight: lighter"> message</span><span style="font-weight: lighter"> and</span><span style="font-weight: lighter"> exit       </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --field1 <span style="font-weight: bold">STR  </span><span style="font-weight: lighter">A</span><span style="font-weight: lighter"> string</span><span style="font-weight: lighter"> field.</span> <span style="color: #e60000">(required)            </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --field2 <span style="font-weight: bold">INT  </span><span style="font-weight: lighter">A</span><span style="font-weight: lighter"> required</span><span style="font-weight: lighter"> integer</span><span style="font-weight: lighter"> field.</span> <span style="color: #008080">(default:</span><span style="color: #008080"> 5)</span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">──────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
 </pre><pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./07_attrs.py --field1 hello</strong>
 Args(field1='hello', field2=5)
@@ -716,7 +718,7 @@ Args(field1='hello', field2=5)
 Args(field1='hello', field2=5)
 </pre></section>
 <section id="ml-collections">
-<span id="example-08-ml-collections"></span><h2>ML Collections<a class="headerlink" href="#ml-collections" title="Link to this heading">¶</a></h2>
+<span id="example-08-ml-collections"></span><h2>ML collections<a class="headerlink" href="#ml-collections" title="Link to this heading">¶</a></h2>
 <p><a class="reference internal" href="../../api/tyro/#tyro.cli" title="tyro.cli"><code class="xref py py-func docutils literal notranslate"><span class="pre">tyro.cli()</span></code></a> understands and can populate config objects implemented using
 <a class="reference external" href="https://github.com/google/ml_collections/">ml_collections</a>, which is an
 excellent library from folks at Google.</p>
@@ -756,29 +758,30 @@ based on value.</p>
 </div>
 <pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./08_ml_collections.py --help</strong>
-<span style="font-weight: bold">usage</span>: 08_ml_collections.py [-h] [OPTIONS]
+<span style="font-weight: bold">usage:</span> ./08_ml_collections.py [-h] [OPTIONS]
 
 Train a model.
 
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> options </span><span style="font-weight: lighter">─────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> -h, --help        <span style="font-weight: lighter">show this help message and exit</span>  <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰────────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> config.network options </span><span style="font-weight: lighter">──────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> --config.network.policy-layer-dims <span style="font-weight: bold">[INT [INT ...]]</span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="color: #008080">(default: 128 128 128)</span>           <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --config.network.policy-obs-key <span style="font-weight: bold">STR</span>                <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="color: #008080">(default: state)</span>                 <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --config.network.value-layer-dims <span style="font-weight: bold">[INT [INT ...]]</span>  <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="color: #008080">(default: 256 256 256 256 256)</span>   <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --config.network.value-obs-key <span style="font-weight: bold">STR</span>                 <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="color: #008080">(default: state)</span>                 <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰────────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> config.wandb options </span><span style="font-weight: lighter">────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> --config.wandb.mode <span style="font-weight: bold">STR</span>                            <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="color: #008080">(default: online)</span>                <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --config.wandb.project <span style="font-weight: bold">STR</span>                         <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="color: #008080">(default: robot-sandbox)</span>         <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰────────────────────────────────────────────────────╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">options</span> <span style="font-weight: lighter; color: #808080">──────────────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> -h, --help                                         <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="font-weight: lighter">show</span><span style="font-weight: lighter"> this</span><span style="font-weight: lighter"> help</span><span style="font-weight: lighter"> message</span><span style="font-weight: lighter"> and</span><span style="font-weight: lighter"> exit             </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">config.network</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">───────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> --config.network.policy-layer-dims <span style="font-weight: bold">[INT</span><span style="font-weight: bold"> [INT</span><span style="font-weight: bold"> ...]]</span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="color: #008080">(default:</span><span style="color: #008080"> 128</span><span style="color: #008080"> 128</span><span style="color: #008080"> 128)                      </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --config.network.policy-obs-key <span style="font-weight: bold">STR               </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="color: #008080">(default:</span><span style="color: #008080"> state)                            </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --config.network.value-layer-dims <span style="font-weight: bold">[INT</span><span style="font-weight: bold"> [INT</span><span style="font-weight: bold"> ...]] </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="color: #008080">(default:</span><span style="color: #008080"> 256</span><span style="color: #008080"> 256</span><span style="color: #008080"> 256</span><span style="color: #008080"> 256</span><span style="color: #008080"> 256)              </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --config.network.value-obs-key <span style="font-weight: bold">STR                </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="color: #008080">(default:</span><span style="color: #008080"> state)                            </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">config.wandb</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">─────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> --config.wandb.mode <span style="font-weight: bold">STR                           </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="color: #008080">(default:</span><span style="color: #008080"> online)                           </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --config.wandb.project <span style="font-weight: bold">STR                        </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="color: #008080">(default:</span><span style="color: #008080"> robot-sandbox)                    </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
 </pre><pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./08_ml_collections.py --config.network.policy-layer-dims 64 64 64</strong>
 {'network': {'policy_layer_dims': (64, 64, 64),
@@ -788,7 +791,7 @@ Train a model.
  'wandb': {'mode': 'online', 'project': 'robot-sandbox'}}
 </pre></section>
 <section id="ml-collections-field-references">
-<span id="example-09-ml-collections-refs"></span><h2>ML Collections + Field References<a class="headerlink" href="#ml-collections-field-references" title="Link to this heading">¶</a></h2>
+<span id="example-09-ml-collections-refs"></span><h2>ML collections + field references<a class="headerlink" href="#ml-collections-field-references" title="Link to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">ml_collections</span></code> supports references for sharing values across multiple fields.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># 09_ml_collections_refs.py</span>
 <span class="linenos"> 2</span><span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">pprint</span>
@@ -830,33 +833,34 @@ Train a model.
 </div>
 <pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./09_ml_collections_refs.py --help</strong>
-<span style="font-weight: bold">usage</span>: 09_ml_collections_refs.py [-h] [OPTIONS]
+<span style="font-weight: bold">usage:</span> ./09_ml_collections_refs.py [-h] [OPTIONS]
 
 Train a model.
 
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> options </span><span style="font-weight: lighter">────────────────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> -h, --help        <span style="font-weight: lighter">show this help message and exit</span>             <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰───────────────────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> config options </span><span style="font-weight: lighter">─────────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> --config.hidden-dim <span style="font-weight: bold">INT</span>                                       <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="font-weight: lighter">Reference default: 128.</span> <span style="color: #008080">(assigns reference)</span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰───────────────────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> config.network options </span><span style="font-weight: lighter">─────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> --config.network.policy-hidden-dim <span style="font-weight: bold">INT</span>                        <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="font-weight: lighter">Reference default: 128.</span> <span style="color: #008080">(assigns reference)</span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --config.network.policy-obs-key <span style="font-weight: bold">STR</span>                           <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="color: #008080">(default: state)</span>                            <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --config.network.value-hidden-dim <span style="font-weight: bold">INT</span>                         <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="font-weight: lighter">Reference default: 256.</span> <span style="color: #008080">(assigns reference)</span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --config.network.value-obs-key <span style="font-weight: bold">STR</span>                            <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="color: #008080">(default: state)</span>                            <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰───────────────────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> config.wandb options </span><span style="font-weight: lighter">───────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> --config.wandb.mode <span style="font-weight: bold">STR</span>                                       <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="color: #008080">(default: online)</span>                           <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --config.wandb.project <span style="font-weight: bold">STR</span>                                    <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="color: #008080">(default: robot-sandbox)</span>                    <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰───────────────────────────────────────────────────────────────╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">options</span> <span style="font-weight: lighter; color: #808080">─────────────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> -h, --help                                        <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="font-weight: lighter">show</span><span style="font-weight: lighter"> this</span><span style="font-weight: lighter"> help</span><span style="font-weight: lighter"> message</span><span style="font-weight: lighter"> and</span><span style="font-weight: lighter"> exit            </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">───────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">config</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">──────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> --config.hidden-dim <span style="font-weight: bold">INT                          </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="font-weight: lighter">Reference</span><span style="font-weight: lighter"> default:</span><span style="font-weight: lighter"> 128.</span> <span style="color: #008080">(assigns</span><span style="color: #008080"> reference)</span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">───────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">config.network</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">──────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> --config.network.policy-hidden-dim <span style="font-weight: bold">INT           </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="font-weight: lighter">Reference</span><span style="font-weight: lighter"> default:</span><span style="font-weight: lighter"> 128.</span> <span style="color: #008080">(assigns</span><span style="color: #008080"> reference)</span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --config.network.policy-obs-key <span style="font-weight: bold">STR              </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="color: #008080">(default:</span><span style="color: #008080"> state)                           </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --config.network.value-hidden-dim <span style="font-weight: bold">INT            </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="font-weight: lighter">Reference</span><span style="font-weight: lighter"> default:</span><span style="font-weight: lighter"> 256.</span> <span style="color: #008080">(assigns</span><span style="color: #008080"> reference)</span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --config.network.value-obs-key <span style="font-weight: bold">STR               </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="color: #008080">(default:</span><span style="color: #008080"> state)                           </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">───────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">config.wandb</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> --config.wandb.mode <span style="font-weight: bold">STR                          </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="color: #008080">(default:</span><span style="color: #008080"> online)                          </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --config.wandb.project <span style="font-weight: bold">STR                       </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>       <span style="color: #008080">(default:</span><span style="color: #008080"> robot-sandbox)                   </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">───────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
 </pre><pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./09_ml_collections_refs.py --config.hidden-dim 32</strong>
 {'hidden_dim': 32,
@@ -875,7 +879,7 @@ Train a model.
  'wandb': {'mode': 'online', 'project': 'robot-sandbox'}}
 </pre></section>
 <section id="msgspec-integration">
-<span id="example-10-msgspec"></span><h2>Msgspec Integration<a class="headerlink" href="#msgspec-integration" title="Link to this heading">¶</a></h2>
+<span id="example-10-msgspec"></span><h2>Msgspec integration<a class="headerlink" href="#msgspec-integration" title="Link to this heading">¶</a></h2>
 <p>In addition to standard dataclasses, <a class="reference internal" href="../../api/tyro/#tyro.cli" title="tyro.cli"><code class="xref py py-func docutils literal notranslate"><span class="pre">tyro.cli()</span></code></a> also supports
 <a class="reference external" href="https://jcristharif.com/msgspec/">msgspec</a> structs.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># 10_msgspec.py</span>
@@ -900,15 +904,15 @@ Train a model.
 </div>
 <pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./10_msgspec.py --help</strong>
-<span style="font-weight: bold">usage</span>: 10_msgspec.py [-h] --field1 <span style="font-weight: bold">STR</span> [--field2 <span style="font-weight: bold">INT</span>]
+<span style="font-weight: bold">usage:</span> ./10_msgspec.py [-h] --field1 <span style="font-weight: bold">STR</span> [--field2 <span style="font-weight: bold">INT</span>]
 
 Description. This should show up in the helptext!
 
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> options </span><span style="font-weight: lighter">─────────────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> -h, --help          <span style="font-weight: lighter">show this help message and exit</span>        <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --field1 <span style="font-weight: bold">STR</span>        <span style="font-weight: lighter">A string field.</span> <span style="font-weight: bold; color: #e60000">(required)</span>             <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --field2 <span style="font-weight: bold">INT</span>        <span style="font-weight: lighter">A required integer field.</span> <span style="color: #008080">(default: 5)</span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰────────────────────────────────────────────────────────────╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">options</span> <span style="font-weight: lighter; color: #808080">────────────────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> -h, --help    <span style="font-weight: lighter">show</span><span style="font-weight: lighter"> this</span><span style="font-weight: lighter"> help</span><span style="font-weight: lighter"> message</span><span style="font-weight: lighter"> and</span><span style="font-weight: lighter"> exit       </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --field1 <span style="font-weight: bold">STR  </span><span style="font-weight: lighter">A</span><span style="font-weight: lighter"> string</span><span style="font-weight: lighter"> field.</span> <span style="color: #e60000">(required)            </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --field2 <span style="font-weight: bold">INT  </span><span style="font-weight: lighter">A</span><span style="font-weight: lighter"> required</span><span style="font-weight: lighter"> integer</span><span style="font-weight: lighter"> field.</span> <span style="color: #008080">(default:</span><span style="color: #008080"> 5)</span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">──────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
 </pre><pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./10_msgspec.py --field1 hello</strong>
 Args(field1='hello', field2=5)
@@ -947,7 +951,7 @@ Args(field1='hello', field2=5)
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024
+                Copyright &#169; 2026
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -980,17 +984,17 @@ Args(field1='hello', field2=5)
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Hierarchical Structures</a><ul>
-<li><a class="reference internal" href="#nested-dataclasses">Nested Dataclasses</a></li>
-<li><a class="reference internal" href="#structures-as-function-arguments">Structures as Function Arguments</a></li>
-<li><a class="reference internal" href="#nesting-in-containers">Nesting in Containers</a></li>
-<li><a class="reference internal" href="#dictionaries-and-typeddict">Dictionaries and TypedDict</a></li>
-<li><a class="reference internal" href="#tuples-and-namedtuple">Tuples and NamedTuple</a></li>
-<li><a class="reference internal" href="#pydantic-integration">Pydantic Integration</a></li>
-<li><a class="reference internal" href="#attrs-integration">Attrs Integration</a></li>
-<li><a class="reference internal" href="#ml-collections">ML Collections</a></li>
-<li><a class="reference internal" href="#ml-collections-field-references">ML Collections + Field References</a></li>
-<li><a class="reference internal" href="#msgspec-integration">Msgspec Integration</a></li>
+<li><a class="reference internal" href="#">Hierarchical structures</a><ul>
+<li><a class="reference internal" href="#nested-dataclasses">Nested dataclasses</a></li>
+<li><a class="reference internal" href="#structures-as-function-arguments">Structures as function arguments</a></li>
+<li><a class="reference internal" href="#nesting-in-containers">Nesting in containers</a></li>
+<li><a class="reference internal" href="#dictionaries-and-typeddict">Dictionaries and <code class="docutils literal notranslate"><span class="pre">TypedDict</span></code></a></li>
+<li><a class="reference internal" href="#tuples-and-namedtuple">Tuples and <code class="docutils literal notranslate"><span class="pre">NamedTuple</span></code></a></li>
+<li><a class="reference internal" href="#pydantic-integration">Pydantic integration</a></li>
+<li><a class="reference internal" href="#attrs-integration">Attrs integration</a></li>
+<li><a class="reference internal" href="#ml-collections">ML collections</a></li>
+<li><a class="reference internal" href="#ml-collections-field-references">ML collections + field references</a></li>
+<li><a class="reference internal" href="#msgspec-integration">Msgspec integration</a></li>
 </ul>
 </li>
 </ul>

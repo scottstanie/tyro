@@ -18,7 +18,8 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/compact_table_header.css?v=932cb7ac" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/compact_table_header.css?v=8cbb8801" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/tyro_demo.css?v=5ed90e8d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/ansi.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=302659d7" />
     
@@ -200,16 +201,22 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../">
-  
-  <div class="sidebar-logo-container">
-    <img class="sidebar-logo only-light" src="../../../_static/logo-light.svg" alt="Light Logo"/>
-    <img class="sidebar-logo only-dark" src="../../../_static/logo-dark.svg" alt="Dark Logo"/>
-  </div>
+      <div class="sidebar-sticky"><a
+  class="sidebar-brand"
+  href="../../../"
+  style="margin-top: 0.75em"
+>
   
   <span class="sidebar-brand-text">tyro</span>
+
   
-</a><form class="sidebar-search-container" method="get" action="../../../search/" role="search">
+</a>
+
+<div style="text-align: left; padding: 0 1em 1em 1em">
+  <a href="https://github.com/brentyi/tyro">
+    <img src="https://img.shields.io/github/stars/brentyi/tyro?style=social" alt="GitHub stars">
+  </a>
+</div><form class="sidebar-search-container" method="get" action="../../../search/" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
@@ -218,15 +225,15 @@
   <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation/">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../your_first_cli/">Your First CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../your_first_cli/">Your first CLI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../whats_supported/">What’s supported</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../examples/basics/">Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../examples/hierarchical_structures/">Hierarchical Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/hierarchical_structures/">Hierarchical structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../examples/subcommands/">Subcommands</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../examples/overriding_configs/">Overriding Configs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/overriding_configs/">Overriding configs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../examples/generics/">Generics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../examples/custom_constructors/">Custom constructors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../examples/pytorch_jax/">PyTorch / JAX</a></li>
@@ -236,6 +243,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../goals_and_alternatives/">Goals and alternatives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../helptext_generation/">Helptext generation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tab_completion/">Tab completion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../wandb_sweeps/">W&amp;B sweep compatibility</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
@@ -285,29 +293,41 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">collections.abc</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">contextlib</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">dataclasses</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">functools</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">docstring_parser</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span><span class="p">,</span> <span class="n">Doc</span><span class="p">,</span> <span class="n">get_args</span><span class="p">,</span> <span class="n">get_origin</span><span class="p">,</span> <span class="n">get_original_bases</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Annotated</span><span class="p">,</span>
+    <span class="n">Doc</span><span class="p">,</span>
+    <span class="n">get_args</span><span class="p">,</span>
+    <span class="n">get_origin</span><span class="p">,</span>
+    <span class="n">get_original_bases</span><span class="p">,</span>
+    <span class="n">is_typeddict</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">tyro.conf._mutex_group</span><span class="w"> </span><span class="kn">import</span> <span class="n">_MutexGroupConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tyro.constructors._primitive_spec</span><span class="w"> </span><span class="kn">import</span> <span class="n">PrimitiveConstructorSpec</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">_docstrings</span><span class="p">,</span> <span class="n">_resolver</span><span class="p">,</span> <span class="n">_strings</span><span class="p">,</span> <span class="n">_unsafe_cache</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">._singleton</span><span class="w"> </span><span class="kn">import</span> <span class="n">MISSING_AND_MISSING_NONPROP</span><span class="p">,</span> <span class="n">MISSING_NONPROP</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">_fmtlib</span> <span class="k">as</span> <span class="n">fmt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">._singleton</span><span class="w"> </span><span class="kn">import</span> <span class="n">MISSING_NONPROP</span><span class="p">,</span> <span class="n">is_missing</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypeForm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">._typing_compat</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_typing_annotated</span><span class="p">,</span> <span class="n">is_typing_unpack</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.conf</span><span class="w"> </span><span class="kn">import</span> <span class="n">_confstruct</span><span class="p">,</span> <span class="n">_markers</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.constructors._registry</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConstructorRegistry</span><span class="p">,</span> <span class="n">check_default_instances</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.constructors._struct_spec</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">InvalidDefaultInstanceError</span><span class="p">,</span>
     <span class="n">StructFieldSpec</span><span class="p">,</span>
     <span class="n">StructTypeInfo</span><span class="p">,</span>
     <span class="n">UnsupportedStructTypeMessage</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">global_context_markers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">_markers</span><span class="o">.</span><span class="n">Marker</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">global_context_markers</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">_markers</span><span class="o">.</span><span class="n">Marker</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
 
 
 <div class="viewcode-block" id="FieldDefinition">
@@ -320,21 +340,29 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Full type, including runtime annotations.&quot;&quot;&quot;</span>
     <span class="n">type_stripped</span><span class="p">:</span> <span class="n">TypeForm</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="n">Callable</span>
     <span class="n">default</span><span class="p">:</span> <span class="n">Any</span>
-    <span class="n">helptext</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
-    <span class="n">markers</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
+    <span class="n">helptext</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">markers</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
     <span class="n">custom_constructor</span><span class="p">:</span> <span class="nb">bool</span>
 
     <span class="n">argconf</span><span class="p">:</span> <span class="n">_confstruct</span><span class="o">.</span><span class="n">_ArgConfig</span>
+    <span class="n">mutex_group</span><span class="p">:</span> <span class="n">_MutexGroupConfig</span> <span class="o">|</span> <span class="kc">None</span>
 
     <span class="c1"># Override the name in our kwargs. Useful whenever the user-facing argument name</span>
     <span class="c1"># doesn&#39;t match the keyword expected by our callable.</span>
     <span class="n">call_argname</span><span class="p">:</span> <span class="n">Any</span>
 
+    <span class="c1"># How this field should be passed to the callable.</span>
+    <span class="c1"># - &quot;kwarg&quot;: passed as keyword argument (default)</span>
+    <span class="c1"># - &quot;positional&quot;: passed as positional argument</span>
+    <span class="c1"># - &quot;unpack_args&quot;: unpacked as *args</span>
+    <span class="c1"># - &quot;unpack_kwargs&quot;: unpacked as **kwargs</span>
+    <span class="n">call_mode</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;kwarg&quot;</span><span class="p">,</span> <span class="s2">&quot;positional&quot;</span><span class="p">,</span> <span class="s2">&quot;unpack_args&quot;</span><span class="p">,</span> <span class="s2">&quot;unpack_kwargs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;kwarg&quot;</span>
+
 <div class="viewcode-block" id="FieldDefinition.marker_context">
 <a class="viewcode-back" href="../../../api/tyro/_fields/#tyro._fields.FieldDefinition.marker_context">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">marker_context</span><span class="p">(</span><span class="n">markers</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">_markers</span><span class="o">.</span><span class="n">Marker</span><span class="p">,</span> <span class="o">...</span><span class="p">]):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">marker_context</span><span class="p">(</span><span class="n">markers</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">_markers</span><span class="o">.</span><span class="n">Marker</span><span class="p">,</span> <span class="o">...</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Context for setting markers on fields. All fields created within the</span>
 <span class="sd">        context will have the specified markers.&quot;&quot;&quot;</span>
         <span class="n">global_context_markers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">markers</span><span class="p">)</span>
@@ -362,19 +390,17 @@
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">make</span><span class="p">(</span>
         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">typ</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">TypeForm</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Callable</span><span class="p">],</span>
+        <span class="n">typ</span><span class="p">:</span> <span class="n">TypeForm</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="n">Callable</span><span class="p">,</span>
         <span class="n">default</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-        <span class="n">helptext</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-        <span class="n">call_argname_override</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">helptext</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">call_argname_override</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">call_mode</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>
+            <span class="s2">&quot;kwarg&quot;</span><span class="p">,</span> <span class="s2">&quot;positional&quot;</span><span class="p">,</span> <span class="s2">&quot;unpack_args&quot;</span><span class="p">,</span> <span class="s2">&quot;unpack_kwargs&quot;</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;kwarg&quot;</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="c1"># Narrow types.</span>
-        <span class="k">if</span> <span class="n">typ</span> <span class="ow">is</span> <span class="n">Any</span> <span class="ow">and</span> <span class="n">default</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">MISSING_AND_MISSING_NONPROP</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">typ</span> <span class="ow">is</span> <span class="n">Any</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_missing</span><span class="p">(</span><span class="n">default</span><span class="p">):</span>
             <span class="n">typ</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
-
-        <span class="c1"># Be forgiving about default instances.</span>
-        <span class="n">typ</span> <span class="o">=</span> <span class="n">_resolver</span><span class="o">.</span><span class="n">narrow_collection_types</span><span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">check_default_instances</span><span class="p">():</span>
-            <span class="n">typ</span> <span class="o">=</span> <span class="n">_resolver</span><span class="o">.</span><span class="n">expand_union_types</span><span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
 
         <span class="c1"># Get all Annotated[] metadata.</span>
         <span class="c1"># This will unpack types in the form Annotated[type_stripped, *metadata].</span>
@@ -418,6 +444,9 @@
 
         <span class="c1"># Get markers.</span>
         <span class="n">markers</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">metadata</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">_markers</span><span class="o">.</span><span class="n">_Marker</span><span class="p">))</span>
+        <span class="n">mutually_exclusive_groups</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">metadata</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">_MutexGroupConfig</span><span class="p">)</span>
+        <span class="p">)</span>
 
         <span class="c1"># Include markers set via context manager.</span>
         <span class="k">for</span> <span class="n">context_markers</span> <span class="ow">in</span> <span class="n">global_context_markers</span><span class="p">:</span>
@@ -427,7 +456,8 @@
         <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="n">MISSING_NONPROP</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">argconfs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">default</span> <span class="o">=</span> <span class="n">argconf</span><span class="o">.</span><span class="n">default</span>
 
-        <span class="k">return</span> <span class="n">FieldDefinition</span><span class="p">(</span>
+        <span class="c1"># Construct field.</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">FieldDefinition</span><span class="p">(</span>
             <span class="n">intern_name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
             <span class="n">extern_name</span><span class="o">=</span><span class="n">name</span> <span class="k">if</span> <span class="n">argconf</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">argconf</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
             <span class="nb">type</span><span class="o">=</span><span class="n">typ</span><span class="p">,</span>
@@ -437,10 +467,24 @@
             <span class="n">markers</span><span class="o">=</span><span class="nb">set</span><span class="p">(</span><span class="n">markers</span><span class="p">),</span>
             <span class="n">custom_constructor</span><span class="o">=</span><span class="n">argconf</span><span class="o">.</span><span class="n">constructor_factory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">argconf</span><span class="o">=</span><span class="n">argconf</span><span class="p">,</span>
+            <span class="n">mutex_group</span><span class="o">=</span><span class="n">mutually_exclusive_groups</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mutually_exclusive_groups</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">call_argname</span><span class="o">=</span><span class="p">(</span>
                 <span class="n">call_argname_override</span> <span class="k">if</span> <span class="n">call_argname_override</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">name</span>
             <span class="p">),</span>
-        <span class="p">)</span></div>
+            <span class="n">call_mode</span><span class="o">=</span><span class="n">call_mode</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Be forgiving about default instances.</span>
+        <span class="n">type_stripped</span> <span class="o">=</span> <span class="n">_resolver</span><span class="o">.</span><span class="n">narrow_collection_types</span><span class="p">(</span><span class="n">type_stripped</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">check_default_instances</span><span class="p">():</span>
+            <span class="n">type_stripped</span> <span class="o">=</span> <span class="n">_resolver</span><span class="o">.</span><span class="n">expand_union_types</span><span class="p">(</span><span class="n">type_stripped</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">type_stripped</span> <span class="o">!=</span> <span class="n">out</span><span class="o">.</span><span class="n">type_stripped</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">with_new_type_stripped</span><span class="p">(</span><span class="n">type_stripped</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">out</span></div>
 
 
 <div class="viewcode-block" id="FieldDefinition.with_new_type_stripped">
@@ -448,7 +492,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">with_new_type_stripped</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">new_type_stripped</span><span class="p">:</span> <span class="n">TypeForm</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="n">Callable</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FieldDefinition</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">get_origin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">)</span> <span class="ow">is</span> <span class="n">Annotated</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">is_typing_annotated</span><span class="p">(</span><span class="n">get_origin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">)):</span>
             <span class="n">new_type</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[(</span><span class="n">new_type_stripped</span><span class="p">,</span> <span class="o">*</span><span class="n">get_args</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])]</span>  <span class="c1"># type: ignore</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">new_type</span> <span class="o">=</span> <span class="n">new_type_stripped</span>  <span class="c1"># type: ignore</span>
@@ -457,35 +501,6 @@
             <span class="nb">type</span><span class="o">=</span><span class="n">new_type</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
             <span class="n">type_stripped</span><span class="o">=</span><span class="n">new_type_stripped</span><span class="p">,</span>
         <span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="FieldDefinition.is_positional">
-<a class="viewcode-back" href="../../../api/tyro/_fields/#tyro._fields.FieldDefinition.is_positional">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">is_positional</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns True if the argument should be positional in the commandline.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">(</span>
-            <span class="c1"># Explicit positionals.</span>
-            <span class="n">_markers</span><span class="o">.</span><span class="n">Positional</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">markers</span>
-            <span class="c1"># Dummy dataclasses should have a single positional field.</span>
-            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">intern_name</span> <span class="o">==</span> <span class="n">_strings</span><span class="o">.</span><span class="n">dummy_field_name</span>
-            <span class="ow">or</span> <span class="p">(</span>
-                <span class="c1"># Make required arguments positional.</span>
-                <span class="n">_markers</span><span class="o">.</span><span class="n">PositionalRequiredArgs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">markers</span>
-                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="ow">in</span> <span class="n">MISSING_AND_MISSING_NONPROP</span>
-            <span class="p">)</span>
-        <span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="FieldDefinition.is_positional_call">
-<a class="viewcode-back" href="../../../api/tyro/_fields/#tyro._fields.FieldDefinition.is_positional_call">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">is_positional_call</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns True if the argument should be positional in underlying Python call.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">(</span>
-            <span class="c1"># Explicit positionals.</span>
-            <span class="n">_markers</span><span class="o">.</span><span class="n">_PositionalCall</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">markers</span>
-            <span class="c1"># Dummy dataclasses should have a single positional field.</span>
-            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">intern_name</span> <span class="o">==</span> <span class="n">_strings</span><span class="o">.</span><span class="n">dummy_field_name</span>
-        <span class="p">)</span></div>
 </div>
 
 
@@ -493,17 +508,31 @@
 <div class="viewcode-block" id="is_struct_type">
 <a class="viewcode-back" href="../../../api/tyro/_fields/#tyro._fields.is_struct_type">[docs]</a>
 <span class="nd">@_unsafe_cache</span><span class="o">.</span><span class="n">unsafe_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">is_struct_type</span><span class="p">(</span><span class="n">typ</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">TypeForm</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Callable</span><span class="p">],</span> <span class="n">default_instance</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_struct_type</span><span class="p">(</span>
+    <span class="n">typ</span><span class="p">:</span> <span class="n">TypeForm</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">default_instance</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">in_union_context</span><span class="p">:</span> <span class="nb">bool</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Determine whether a type should be treated as a &#39;struct type&#39;, where a single</span>
 <span class="sd">    type can be broken down into multiple fields (eg for nested dataclasses or</span>
-<span class="sd">    classes).&quot;&quot;&quot;</span>
+<span class="sd">    classes).</span>
+
+<span class="sd">    The `in_union_context` flag indicates whether this type is being evaluated as part</span>
+<span class="sd">    of a union. When True, allows collection types like List[Struct] or Dict[str, Struct]</span>
+<span class="sd">    without defaults to be treated as struct types (for subcommand creation).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Fast path: common primitive types are never struct types.</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">typ</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">type</span> <span class="ow">and</span> <span class="n">typ</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="kc">False</span>
 
     <span class="n">list_or_error</span> <span class="o">=</span> <span class="n">field_list_from_type_or_callable</span><span class="p">(</span>
-        <span class="n">typ</span><span class="p">,</span> <span class="n">default_instance</span><span class="p">,</span> <span class="n">support_single_arg_types</span><span class="o">=</span><span class="kc">False</span>
+        <span class="n">typ</span><span class="p">,</span>
+        <span class="n">default_instance</span><span class="p">,</span>
+        <span class="n">support_single_arg_types</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">in_union_context</span><span class="o">=</span><span class="n">in_union_context</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
         <span class="n">list_or_error</span><span class="p">,</span>
-        <span class="n">UnsupportedStructTypeMessage</span><span class="p">,</span>
+        <span class="p">(</span><span class="n">UnsupportedStructTypeMessage</span><span class="p">,</span> <span class="n">InvalidDefaultInstanceError</span><span class="p">),</span>
     <span class="p">)</span></div>
 
 
@@ -511,27 +540,57 @@
 <div class="viewcode-block" id="field_list_from_type_or_callable">
 <a class="viewcode-back" href="../../../api/tyro/_fields/#tyro._fields.field_list_from_type_or_callable">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">field_list_from_type_or_callable</span><span class="p">(</span>
-    <span class="n">f</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Callable</span><span class="p">,</span> <span class="n">TypeForm</span><span class="p">[</span><span class="n">Any</span><span class="p">]],</span>
+    <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">|</span> <span class="n">TypeForm</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span>
     <span class="n">default_instance</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="n">support_single_arg_types</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">in_union_context</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span>
     <span class="n">UnsupportedStructTypeMessage</span>
+    <span class="o">|</span> <span class="n">InvalidDefaultInstanceError</span>
     <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Callable</span> <span class="o">|</span> <span class="n">TypeForm</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">FieldDefinition</span><span class="p">]]</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a list of generic &#39;field&#39; objects corresponding to the inputs of some</span>
 <span class="sd">    annotated callable.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        The type that `f` is resolved as.</span>
-<span class="sd">        A list of field definitions.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    The `in_union_context` flag indicates whether this type is being evaluated as part</span>
+<span class="sd">    of a union. When True, allows collection types like List[Struct] or Dict[str, Struct]</span>
+<span class="sd">    without defaults to be treated as struct types (for subcommand creation).</span>
 
-    <span class="n">type_info</span> <span class="o">=</span> <span class="n">StructTypeInfo</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">default_instance</span><span class="p">)</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        - tuple[type, list[FieldDefinition]] if successful: the resolved type and its field definitions.</span>
+<span class="sd">        - UnsupportedStructTypeMessage if the type cannot be treated as a struct (e.g., not a dataclass, function, etc.).</span>
+<span class="sd">        - InvalidDefaultInstanceError if the type can be treated as a struct, but the provided default instance is incompatible with the type.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_resolver</span><span class="o">.</span><span class="n">unwrap_annotated</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">PrimitiveConstructorSpec</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">UnsupportedStructTypeMessage</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2"> should be parsed as a primitive type.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">type_info</span> <span class="o">=</span> <span class="n">StructTypeInfo</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">default_instance</span><span class="p">,</span> <span class="n">in_union_context</span><span class="p">)</span>
     <span class="n">type_orig</span> <span class="o">=</span> <span class="n">f</span>
     <span class="k">del</span> <span class="n">f</span>
 
+    <span class="c1"># Special case when treating `None` as a struct type.</span>
+    <span class="k">if</span> <span class="n">support_single_arg_types</span> <span class="ow">and</span> <span class="n">type_info</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_missing</span><span class="p">(</span><span class="n">default_instance</span><span class="p">)</span> <span class="ow">and</span> <span class="n">default_instance</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">InvalidDefaultInstanceError</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="n">fmt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                        <span class="s2">&quot;Default type &quot;</span><span class="p">,</span>
+                        <span class="n">fmt</span><span class="o">.</span><span class="n">text</span><span class="p">[</span><span class="s2">&quot;cyan&quot;</span><span class="p">](</span><span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">default_instance</span><span class="p">))),</span>
+                        <span class="s2">&quot; is not &quot;</span><span class="p">,</span>
+                        <span class="n">fmt</span><span class="o">.</span><span class="n">text</span><span class="p">[</span><span class="s2">&quot;magenta&quot;</span><span class="p">](</span><span class="s2">&quot;None&quot;</span><span class="p">),</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="p">[])</span>
+
     <span class="k">with</span> <span class="n">type_info</span><span class="o">.</span><span class="n">_typevar_context</span><span class="p">:</span>
         <span class="n">spec</span> <span class="o">=</span> <span class="n">ConstructorRegistry</span><span class="o">.</span><span class="n">get_struct_spec</span><span class="p">(</span><span class="n">type_info</span><span class="p">)</span>
+
+        <span class="c1"># Check if we got an error instead of a spec.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">InvalidDefaultInstanceError</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">spec</span>
 
         <span class="k">with</span> <span class="n">FieldDefinition</span><span class="o">.</span><span class="n">marker_context</span><span class="p">(</span><span class="n">type_info</span><span class="o">.</span><span class="n">markers</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">spec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -541,9 +600,7 @@
 
             <span class="n">is_primitive</span> <span class="o">=</span> <span class="n">ConstructorRegistry</span><span class="o">.</span><span class="n">_is_primitive_type</span><span class="p">(</span><span class="n">type_orig</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
             <span class="k">if</span> <span class="n">is_primitive</span> <span class="ow">and</span> <span class="n">support_single_arg_types</span><span class="p">:</span>
-                <span class="k">with</span> <span class="n">FieldDefinition</span><span class="o">.</span><span class="n">marker_context</span><span class="p">(</span>
-                    <span class="p">(</span><span class="n">_markers</span><span class="o">.</span><span class="n">Positional</span><span class="p">,</span> <span class="n">_markers</span><span class="o">.</span><span class="n">_PositionalCall</span><span class="p">)</span>
-                <span class="p">):</span>
+                <span class="k">with</span> <span class="n">FieldDefinition</span><span class="o">.</span><span class="n">marker_context</span><span class="p">((</span><span class="n">_markers</span><span class="o">.</span><span class="n">Positional</span><span class="p">,)):</span>
                     <span class="k">return</span> <span class="p">(</span>
                         <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span>
                         <span class="p">[</span>
@@ -552,6 +609,7 @@
                                 <span class="n">typ</span><span class="o">=</span><span class="n">type_orig</span><span class="p">,</span>
                                 <span class="n">default</span><span class="o">=</span><span class="n">default_instance</span><span class="p">,</span>
                                 <span class="n">helptext</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                                <span class="n">call_mode</span><span class="o">=</span><span class="s2">&quot;positional&quot;</span><span class="p">,</span>
                             <span class="p">)</span>
                         <span class="p">],</span>
                     <span class="p">)</span>
@@ -569,12 +627,14 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">_field_list_from_function</span><span class="p">(</span>
     <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">default_instance</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">markers</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">_markers</span><span class="o">.</span><span class="n">Marker</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UnsupportedStructTypeMessage</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">FieldDefinition</span><span class="p">]]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate field lists from non-class callables.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate field lists from callables.&quot;&quot;&quot;</span>
 
     <span class="c1"># Development note: separate conditions are helpful for test coverage reports.</span>
     <span class="k">if</span> <span class="n">f</span> <span class="ow">is</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">UnsupportedStructTypeMessage</span><span class="p">(</span><span class="s2">&quot;`Any` is not a valid struct type!&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">get_origin</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="ow">is</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Callable</span><span class="p">:</span>
+
+    <span class="n">f_origin</span> <span class="o">=</span> <span class="n">get_origin</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">f_origin</span><span class="p">,</span> <span class="s2">&quot;__module__&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;collections.abc&quot;</span><span class="p">,</span> <span class="s2">&quot;builtins&quot;</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">UnsupportedStructTypeMessage</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;`</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">` is not a valid struct type!&quot;</span><span class="p">)</span>
 
     <span class="k">try</span><span class="p">:</span>
@@ -707,7 +767,9 @@
     <span class="c1"># we&#39;ll be more conservative in converting `--x` to a {fixed} argument.</span>
     <span class="c1"># The latter case requires returning an UnsupportedStructTypeMessage to avoid</span>
     <span class="c1"># unpacking the arguments of SomeScaryType.</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hints</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">f_before_init_unwrap</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hints</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isfunction</span><span class="p">(</span>
+        <span class="n">f_before_init_unwrap</span>
+    <span class="p">):</span>
         <span class="k">return</span> <span class="n">UnsupportedStructTypeMessage</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Empty hints for </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">)</span>
 
     <span class="n">field_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -718,34 +780,53 @@
         <span class="c1"># Get helptext from docstring.</span>
         <span class="n">helptext</span> <span class="o">=</span> <span class="n">docstring_from_arg_name</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">helptext</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">f_before_init_unwrap</span><span class="p">):</span>
-            <span class="n">helptext</span> <span class="o">=</span> <span class="n">_docstrings</span><span class="o">.</span><span class="n">get_field_docstring</span><span class="p">(</span>
-                <span class="n">f_before_init_unwrap</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">markers</span>
+            <span class="c1"># Lazy docstring parsing: use partial to defer expensive parsing.</span>
+            <span class="n">helptext</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span>
+                <span class="n">_docstrings</span><span class="o">.</span><span class="n">get_field_docstring</span><span class="p">,</span>
+                <span class="n">f_before_init_unwrap</span><span class="p">,</span>
+                <span class="n">param</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">markers</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="c1"># Set markers for positional + variadic arguments.</span>
+        <span class="c1"># Set call_mode and markers for positional + variadic arguments.</span>
         <span class="n">func_markers</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>
+        <span class="n">call_mode</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;kwarg&quot;</span><span class="p">,</span> <span class="s2">&quot;positional&quot;</span><span class="p">,</span> <span class="s2">&quot;unpack_args&quot;</span><span class="p">,</span> <span class="s2">&quot;unpack_kwargs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;kwarg&quot;</span>
+        <span class="p">)</span>
         <span class="n">typ</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">hints</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">Any</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">kind</span> <span class="ow">is</span> <span class="n">inspect</span><span class="o">.</span><span class="n">Parameter</span><span class="o">.</span><span class="n">POSITIONAL_ONLY</span><span class="p">:</span>
-            <span class="n">func_markers</span> <span class="o">=</span> <span class="p">(</span><span class="n">_markers</span><span class="o">.</span><span class="n">Positional</span><span class="p">,</span> <span class="n">_markers</span><span class="o">.</span><span class="n">_PositionalCall</span><span class="p">)</span>
+            <span class="n">func_markers</span> <span class="o">=</span> <span class="p">(</span><span class="n">_markers</span><span class="o">.</span><span class="n">Positional</span><span class="p">,)</span>
+            <span class="n">call_mode</span> <span class="o">=</span> <span class="s2">&quot;positional&quot;</span>
         <span class="k">elif</span> <span class="n">param</span><span class="o">.</span><span class="n">kind</span> <span class="ow">is</span> <span class="n">inspect</span><span class="o">.</span><span class="n">Parameter</span><span class="o">.</span><span class="n">VAR_POSITIONAL</span><span class="p">:</span>
             <span class="c1"># Handle *args signatures.</span>
             <span class="c1">#</span>
             <span class="c1"># This will create a `--args T [T ...]` CLI argument.</span>
-            <span class="n">func_markers</span> <span class="o">=</span> <span class="p">(</span><span class="n">_markers</span><span class="o">.</span><span class="n">_UnpackArgsCall</span><span class="p">,)</span>
+            <span class="n">call_mode</span> <span class="o">=</span> <span class="s2">&quot;unpack_args&quot;</span>
             <span class="n">typ</span> <span class="o">=</span> <span class="n">Tuple</span><span class="p">[(</span><span class="n">typ</span><span class="p">,</span> <span class="o">...</span><span class="p">)]</span>  <span class="c1"># type: ignore</span>
-            <span class="n">default</span> <span class="o">=</span> <span class="p">()</span>
+            <span class="c1"># Only set empty default when there&#39;s no default_instance.</span>
+            <span class="c1"># When default_instance is provided, we want MISSING_NONPROP so that</span>
+            <span class="c1"># the _OPTIONAL_GROUP logic can return the default_instance directly.</span>
+            <span class="k">if</span> <span class="n">is_missing</span><span class="p">(</span><span class="n">default_instance</span><span class="p">):</span>
+                <span class="n">default</span> <span class="o">=</span> <span class="p">()</span>
         <span class="k">elif</span> <span class="n">param</span><span class="o">.</span><span class="n">kind</span> <span class="ow">is</span> <span class="n">inspect</span><span class="o">.</span><span class="n">Parameter</span><span class="o">.</span><span class="n">VAR_KEYWORD</span><span class="p">:</span>
-            <span class="c1"># Handle *kwargs signatures.</span>
-            <span class="c1">#</span>
-            <span class="c1"># This will create a `--kwargs STR T [STR T ...]` CLI argument.</span>
-            <span class="c1">#</span>
-            <span class="c1"># It would be straightforward to make both this and *args truly</span>
-            <span class="c1"># positional, omitting the --args/--kwargs prefix, but we are</span>
-            <span class="c1"># choosing not to because it would make *args and **kwargs</span>
-            <span class="c1"># difficult to use in conjunction.</span>
-            <span class="n">func_markers</span> <span class="o">=</span> <span class="p">(</span><span class="n">_markers</span><span class="o">.</span><span class="n">_UnpackKwargsCall</span><span class="p">,)</span>
-            <span class="n">typ</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typ</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
-            <span class="n">default</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="c1"># Handle **kwargs signatures.</span>
+            <span class="n">call_mode</span> <span class="o">=</span> <span class="s2">&quot;unpack_kwargs&quot;</span>
+            <span class="n">typ_origin</span> <span class="o">=</span> <span class="n">get_origin</span><span class="p">(</span><span class="n">typ</span><span class="p">)</span>
+            <span class="n">unpack_args</span> <span class="o">=</span> <span class="n">get_args</span><span class="p">(</span><span class="n">typ</span><span class="p">)</span>
+
+            <span class="c1"># Check for Unpack[TypedDict] pattern.</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">is_typing_unpack</span><span class="p">(</span><span class="n">typ_origin</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">unpack_args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+                <span class="ow">and</span> <span class="n">is_typeddict</span><span class="p">(</span><span class="n">unpack_args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="p">):</span>
+                <span class="c1"># Treat as nested TypedDict struct.</span>
+                <span class="n">typ</span> <span class="o">=</span> <span class="n">unpack_args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">default</span> <span class="o">=</span> <span class="n">MISSING_NONPROP</span>  <span class="c1"># Let TypedDict rule handle defaults.</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Original behavior: creates `--kwargs STR T [STR T ...]` argument.</span>
+                <span class="n">typ</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typ</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
+                <span class="n">default</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">with</span> <span class="n">FieldDefinition</span><span class="o">.</span><span class="n">marker_context</span><span class="p">(</span><span class="n">func_markers</span><span class="p">):</span>
             <span class="n">field_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
@@ -753,10 +834,11 @@
                     <span class="n">name</span><span class="o">=</span><span class="n">param</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                     <span class="c1"># param.annotation doesn&#39;t resolve forward references.</span>
                     <span class="n">typ</span><span class="o">=</span><span class="n">typ</span>
-                    <span class="k">if</span> <span class="n">default_instance</span> <span class="ow">in</span> <span class="n">MISSING_AND_MISSING_NONPROP</span>
+                    <span class="k">if</span> <span class="n">is_missing</span><span class="p">(</span><span class="n">default_instance</span><span class="p">)</span>
                     <span class="k">else</span> <span class="n">Annotated</span><span class="p">[(</span><span class="n">typ</span><span class="p">,</span> <span class="n">_markers</span><span class="o">.</span><span class="n">_OPTIONAL_GROUP</span><span class="p">)],</span>  <span class="c1"># type: ignore</span>
                     <span class="n">default</span><span class="o">=</span><span class="n">default</span> <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">param</span><span class="o">.</span><span class="n">empty</span> <span class="k">else</span> <span class="n">MISSING_NONPROP</span><span class="p">,</span>
                     <span class="n">helptext</span><span class="o">=</span><span class="n">helptext</span><span class="p">,</span>
+                    <span class="n">call_mode</span><span class="o">=</span><span class="n">call_mode</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span>
 
@@ -773,7 +855,7 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024
+                Copyright &#169; 2026
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             

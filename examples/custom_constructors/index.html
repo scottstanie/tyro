@@ -19,7 +19,8 @@
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/compact_table_header.css?v=932cb7ac" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/compact_table_header.css?v=8cbb8801" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/tyro_demo.css?v=5ed90e8d" />
     <link rel="stylesheet" type="text/css" href="../../_static/ansi.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
     
@@ -201,16 +202,22 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../">
-  
-  <div class="sidebar-logo-container">
-    <img class="sidebar-logo only-light" src="../../_static/logo-light.svg" alt="Light Logo"/>
-    <img class="sidebar-logo only-dark" src="../../_static/logo-dark.svg" alt="Dark Logo"/>
-  </div>
+      <div class="sidebar-sticky"><a
+  class="sidebar-brand"
+  href="../../"
+  style="margin-top: 0.75em"
+>
   
   <span class="sidebar-brand-text">tyro</span>
+
   
-</a><form class="sidebar-search-container" method="get" action="../../search/" role="search">
+</a>
+
+<div style="text-align: left; padding: 0 1em 1em 1em">
+  <a href="https://github.com/brentyi/tyro">
+    <img src="https://img.shields.io/github/stars/brentyi/tyro?style=social" alt="GitHub stars">
+  </a>
+</div><form class="sidebar-search-container" method="get" action="../../search/" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
@@ -219,15 +226,15 @@
   <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../your_first_cli/">Your First CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../your_first_cli/">Your first CLI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../whats_supported/">What’s supported</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../basics/">Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../hierarchical_structures/">Hierarchical Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hierarchical_structures/">Hierarchical structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../subcommands/">Subcommands</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../overriding_configs/">Overriding Configs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overriding_configs/">Overriding configs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../generics/">Generics</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Custom constructors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../pytorch_jax/">PyTorch / JAX</a></li>
@@ -237,6 +244,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../goals_and_alternatives/">Goals and alternatives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../helptext_generation/">Helptext generation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tab_completion/">Tab completion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../wandb_sweeps/">W&amp;B sweep compatibility</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
@@ -306,7 +314,7 @@ broken down into multiple arguments.</p></li>
 recommend using them sparingly.</p>
 </div>
 <section id="simple-constructors">
-<span id="example-01-simple-constructors"></span><h2>Simple Constructors<a class="headerlink" href="#simple-constructors" title="Link to this heading">¶</a></h2>
+<span id="example-01-simple-constructors"></span><h2>Simple constructors<a class="headerlink" href="#simple-constructors" title="Link to this heading">¶</a></h2>
 <p>For simple custom constructors, we can pass a constructor function into
 <a class="reference internal" href="../../api/tyro/conf/#tyro.conf.arg" title="tyro.conf.arg"><code class="xref py py-func docutils literal notranslate"><span class="pre">tyro.conf.arg()</span></code></a> or <a class="reference internal" href="../../api/tyro/conf/#tyro.conf.subcommand" title="tyro.conf.subcommand"><code class="xref py py-func docutils literal notranslate"><span class="pre">tyro.conf.subcommand()</span></code></a>. Arguments will be
 generated by parsing the signature of the constructor function.</p>
@@ -340,21 +348,19 @@ generated by parsing the signature of the constructor function.</p>
 </div>
 <pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./01_simple_constructors.py --help</strong>
-<span style="font-weight: bold">usage</span>: 01_simple_constructors.py [-h] --array.values <span style="font-weight: bold">[FLOAT</span>
-<span style="font-weight: bold">                                 [FLOAT ...]]</span> [--array.dtype
-<span style="font-weight: bold">{float32,float64}</span>]
+<span style="font-weight: bold">usage:</span> ./01_simple_constructors.py [-h] --array.values <span style="font-weight: bold">[FLOAT</span><span style="font-weight: bold"> [FLOAT</span><span style="font-weight: bold"> ...]]</span> [--array.dtype <span style="font-weight: bold">{float32,float64}</span>]
 
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> options </span><span style="font-weight: lighter">────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> -h, --help        <span style="font-weight: lighter">show this help message and exit</span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰───────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> array options </span><span style="font-weight: lighter">──────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> <span style="font-weight: bold">A custom constructor for 1D NumPy arrays.        </span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> <span style="font-weight: lighter">─────────────────────────────────────────        </span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --array.values <span style="font-weight: bold">[FLOAT [FLOAT ...]]</span>                <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="font-weight: bold; color: #e60000">(required)</span>                      <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --array.dtype <span style="font-weight: bold">{float32,float64}</span>                   <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                   <span style="color: #008080">(default: float64)</span>              <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰───────────────────────────────────────────────────╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">options</span> <span style="font-weight: lighter; color: #808080">───────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> -h, --help  <span style="font-weight: lighter">show</span><span style="font-weight: lighter"> this</span><span style="font-weight: lighter"> help</span><span style="font-weight: lighter"> message</span><span style="font-weight: lighter"> and</span><span style="font-weight: lighter"> exit</span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">─────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">array</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">─────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> A custom constructor for 1D NumPy arrays.   <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> <span style="font-weight: lighter; color: #808080">───────────────────────────────────────────</span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --array.values <span style="font-weight: bold">[FLOAT</span><span style="font-weight: bold"> [FLOAT</span><span style="font-weight: bold"> ...]]         </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>             <span style="color: #e60000">(required)                     </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --array.dtype <span style="font-weight: bold">{float32,float64}            </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>             <span style="color: #008080">(default:</span><span style="color: #008080"> float64)             </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">─────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
 </pre><pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./01_simple_constructors.py --array.values 1 2 3</strong>
 array=array([1., 2., 3.])
@@ -363,7 +369,7 @@ array=array([1., 2., 3.])
 array=array([1., 2., 3., 4., 5.], dtype=float32)
 </pre></section>
 <section id="custom-primitive">
-<span id="example-02-primitive-annotation"></span><h2>Custom Primitive<a class="headerlink" href="#custom-primitive" title="Link to this heading">¶</a></h2>
+<span id="example-02-primitive-annotation"></span><h2>Custom primitive<a class="headerlink" href="#custom-primitive" title="Link to this heading">¶</a></h2>
 <p>In this example, we use <a class="reference internal" href="../../api/tyro/constructors/#module-tyro.constructors" title="tyro.constructors"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tyro.constructors</span></code></a> to attach a primitive
 constructor via a runtime annotation.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># 02_primitive_annotation.py</span>
@@ -407,13 +413,13 @@ constructor via a runtime annotation.</p>
 </div>
 <pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./02_primitive_annotation.py --help</strong>
-<span style="font-weight: bold">usage</span>: 02_primitive_annotation.py [-h] --dict1 <span style="font-weight: bold">JSON</span> [--dict2 <span style="font-weight: bold">JSON</span>]
+<span style="font-weight: bold">usage:</span> ./02_primitive_annotation.py [-h] --dict1 <span style="font-weight: bold">JSON</span> [--dict2 <span style="font-weight: bold">JSON</span>]
 
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> options </span><span style="font-weight: lighter">──────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> -h, --help          <span style="font-weight: lighter">show this help message and exit</span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --dict1 <span style="font-weight: bold">JSON</span>        <span style="font-weight: bold; color: #e60000">(required)</span>                      <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --dict2 <span style="font-weight: bold">JSON</span>        <span style="color: #008080">(default: '{"default": null}')</span>  <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰─────────────────────────────────────────────────────╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">options</span> <span style="font-weight: lighter; color: #808080">─────────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> -h, --help    <span style="font-weight: lighter">show</span><span style="font-weight: lighter"> this</span><span style="font-weight: lighter"> help</span><span style="font-weight: lighter"> message</span><span style="font-weight: lighter"> and</span><span style="font-weight: lighter"> exit</span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --dict1 <span style="font-weight: bold">JSON  </span><span style="color: #e60000">(required)                     </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --dict2 <span style="font-weight: bold">JSON  </span><span style="color: #008080">(default:</span><span style="color: #008080"> '{"default":</span><span style="color: #008080"> null}') </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">───────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
 </pre><pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./02_primitive_annotation.py --dict1 '{"hello": "world"}'</strong>
 dict1={'hello': 'world'}
@@ -424,7 +430,7 @@ dict1={'hello': 'world'}
 dict2={'hello': 'world'}
 </pre></section>
 <section id="custom-primitive-registry">
-<span id="example-03-primitive-registry"></span><h2>Custom Primitive (Registry)<a class="headerlink" href="#custom-primitive-registry" title="Link to this heading">¶</a></h2>
+<span id="example-03-primitive-registry"></span><h2>Custom primitive (registry)<a class="headerlink" href="#custom-primitive-registry" title="Link to this heading">¶</a></h2>
 <p>In this example, we use a <a class="reference internal" href="../../api/tyro/constructors/#tyro.constructors.ConstructorRegistry" title="tyro.constructors.ConstructorRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">tyro.constructors.ConstructorRegistry</span></code></a> to
 define a rule that applies to all types that match <code class="docutils literal notranslate"><span class="pre">dict[str,</span> <span class="pre">Any]</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># 03_primitive_registry.py</span>
@@ -469,15 +475,15 @@ define a rule that applies to all types that match <code class="docutils literal
 </div>
 <pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./03_primitive_registry.py --help</strong>
-<span style="font-weight: bold">usage</span>: 03_primitive_registry.py [-h] --dict1 <span style="font-weight: bold">JSON</span> [--dict2 <span style="font-weight: bold">JSON</span>]
+<span style="font-weight: bold">usage:</span> ./03_primitive_registry.py [-h] --dict1 <span style="font-weight: bold">JSON</span> [--dict2 <span style="font-weight: bold">JSON</span>]
 
 A function with two arguments, which can be populated from the CLI via JSON.
 
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> options </span><span style="font-weight: lighter">──────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> -h, --help          <span style="font-weight: lighter">show this help message and exit</span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --dict1 <span style="font-weight: bold">JSON</span>        <span style="font-weight: bold; color: #e60000">(required)</span>                      <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --dict2 <span style="font-weight: bold">JSON</span>        <span style="color: #008080">(default: '{"default": null}')</span>  <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰─────────────────────────────────────────────────────╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">options</span> <span style="font-weight: lighter; color: #808080">─────────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> -h, --help    <span style="font-weight: lighter">show</span><span style="font-weight: lighter"> this</span><span style="font-weight: lighter"> help</span><span style="font-weight: lighter"> message</span><span style="font-weight: lighter"> and</span><span style="font-weight: lighter"> exit</span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --dict1 <span style="font-weight: bold">JSON  </span><span style="color: #e60000">(required)                     </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --dict2 <span style="font-weight: bold">JSON  </span><span style="color: #008080">(default:</span><span style="color: #008080"> '{"default":</span><span style="color: #008080"> null}') </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">───────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
 </pre><pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./03_primitive_registry.py --dict1 '{"hello": "world"}'</strong>
 dict1={'hello': 'world'}
@@ -488,7 +494,7 @@ dict1={'hello': 'world'}
 dict2={'hello': 'world'}
 </pre></section>
 <section id="custom-structs-registry">
-<span id="example-04-struct-registry"></span><h2>Custom Structs (Registry)<a class="headerlink" href="#custom-structs-registry" title="Link to this heading">¶</a></h2>
+<span id="example-04-struct-registry"></span><h2>Custom structs (registry)<a class="headerlink" href="#custom-structs-registry" title="Link to this heading">¶</a></h2>
 <p>In this example, we use a <a class="reference internal" href="../../api/tyro/constructors/#tyro.constructors.ConstructorRegistry" title="tyro.constructors.ConstructorRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">tyro.constructors.ConstructorRegistry</span></code></a> to
 add support for a custom struct type. Each struct type is broken down into
 multiple fields, which themselves can be either primitive types or nested
@@ -567,23 +573,23 @@ structs.</p>
 </div>
 <pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./04_struct_registry.py --help</strong>
-<span style="font-weight: bold">usage</span>: 04_struct_registry.py [-h] [OPTIONS]
+<span style="font-weight: bold">usage:</span> ./04_struct_registry.py [-h] [OPTIONS]
 
 A function with two `Bounds` instances as input.
 
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> options </span><span style="font-weight: lighter">──────────────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> -h, --help              <span style="font-weight: lighter">show this help message and exit</span> <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰─────────────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> bounds options </span><span style="font-weight: lighter">───────────────────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> --bounds.lower <span style="font-weight: bold">INT</span>      <span style="font-weight: lighter">Lower bound.</span> <span style="font-weight: bold; color: #e60000">(required)</span>         <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --bounds.upper <span style="font-weight: bold">INT</span>      <span style="font-weight: lighter">Upper bound.</span> <span style="font-weight: bold; color: #e60000">(required)</span>         <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰─────────────────────────────────────────────────────────╯</span>
-<span style="font-weight: lighter">╭─</span><span style="font-weight: lighter"> bounds-with-default options </span><span style="font-weight: lighter">──────────────────────────</span><span style="font-weight: lighter">─╮</span>
-<span style="font-weight: lighter">│</span> --bounds-with-default.lower <span style="font-weight: bold">INT</span>                         <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                         <span style="font-weight: lighter">Lower bound.</span> <span style="color: #008080">(default: 0)</span>       <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span> --bounds-with-default.upper <span style="font-weight: bold">INT</span>                         <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">│</span>                         <span style="font-weight: lighter">Upper bound.</span> <span style="color: #008080">(default: 100)</span>     <span style="font-weight: lighter">│</span>
-<span style="font-weight: lighter">╰─────────────────────────────────────────────────────────╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">options</span> <span style="font-weight: lighter; color: #808080">───────────────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> -h, --help          <span style="font-weight: lighter">show</span><span style="font-weight: lighter"> this</span><span style="font-weight: lighter"> help</span><span style="font-weight: lighter"> message</span><span style="font-weight: lighter"> and</span><span style="font-weight: lighter"> exit</span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">─────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">bounds</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">────────────────────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> --bounds.lower <span style="font-weight: bold">INT  </span><span style="font-weight: lighter">Lower</span><span style="font-weight: lighter"> bound.</span> <span style="color: #e60000">(required)        </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --bounds.upper <span style="font-weight: bold">INT  </span><span style="font-weight: lighter">Upper</span><span style="font-weight: lighter"> bound.</span> <span style="color: #e60000">(required)        </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">─────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
+<span style="font-weight: lighter; color: #808080">╭</span><span style="font-weight: lighter; color: #808080">─</span> <span style="font-weight: lighter; color: #808080">bounds-with-default</span><span style="font-weight: lighter; color: #808080"> options</span> <span style="font-weight: lighter; color: #808080">───────────────────────╮</span>
+<span style="font-weight: lighter; color: #808080">│</span> --bounds-with-default.lower <span style="font-weight: bold">INT                    </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>                     <span style="font-weight: lighter">Lower</span><span style="font-weight: lighter"> bound.</span> <span style="color: #008080">(default:</span><span style="color: #008080"> 0)      </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span> --bounds-with-default.upper <span style="font-weight: bold">INT                    </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">│</span>                     <span style="font-weight: lighter">Upper</span><span style="font-weight: lighter"> bound.</span> <span style="color: #008080">(default:</span><span style="color: #008080"> 100)    </span> <span style="font-weight: lighter; color: #808080">│</span>
+<span style="font-weight: lighter; color: #808080">╰</span><span style="font-weight: lighter; color: #808080">─────────────────────────────────────────────────────</span><span style="font-weight: lighter; color: #808080">╯</span>
 </pre><pre class="highlight" style="padding: 1em; box-sizing: border-box; font-size: 0.85em; line-height: 1.2em;">
 <strong style="opacity: 0.7; padding-bottom: 0.5em; display: inline-block"><span style="user-select: none">$ </span>python ./04_struct_registry.py --bounds.lower 5 --bounds.upper 10</strong>
 bounds=(lower=5, upper=10)
@@ -620,7 +626,7 @@ bounds_with_default=(lower=0, upper=100)
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024
+                Copyright &#169; 2026
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -654,10 +660,10 @@ bounds_with_default=(lower=0, upper=100)
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Custom constructors</a><ul>
-<li><a class="reference internal" href="#simple-constructors">Simple Constructors</a></li>
-<li><a class="reference internal" href="#custom-primitive">Custom Primitive</a></li>
-<li><a class="reference internal" href="#custom-primitive-registry">Custom Primitive (Registry)</a></li>
-<li><a class="reference internal" href="#custom-structs-registry">Custom Structs (Registry)</a></li>
+<li><a class="reference internal" href="#simple-constructors">Simple constructors</a></li>
+<li><a class="reference internal" href="#custom-primitive">Custom primitive</a></li>
+<li><a class="reference internal" href="#custom-primitive-registry">Custom primitive (registry)</a></li>
+<li><a class="reference internal" href="#custom-structs-registry">Custom structs (registry)</a></li>
 </ul>
 </li>
 </ul>

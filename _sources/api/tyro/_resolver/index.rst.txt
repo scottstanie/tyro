@@ -14,10 +14,6 @@
 Module Contents
 ---------------
 
-.. py:data:: TypeAliasTypeAlternate
-
-   
-
 .. py:data:: UnionType
 
    Same as types.UnionType, but points to typing.Union for older versions of
@@ -91,10 +87,6 @@ Module Contents
    TypeForm narrowing for containers. Infers types of container contents.
 
 
-.. py:data:: STRIP_WRAPPER_TYPES
-
-   
-
 .. py:data:: MetadataType
 
    
@@ -126,7 +118,7 @@ Module Contents
       Context manager for resolving type parameters.
 
 
-   .. py:method:: resolve_params_and_aliases(typ: TypeOrCallable, seen: set[Any] | None = None) -> TypeOrCallable
+   .. py:method:: resolve_params_and_aliases(typ: TypeOrCallable, seen: set[Any] | None = None, ignore_confstruct: bool = False) -> TypeOrCallable
       :staticmethod:
 
       Apply type parameter assignments based on the current context.
